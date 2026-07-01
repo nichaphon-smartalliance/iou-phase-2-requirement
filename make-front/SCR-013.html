@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-013 — Bank Reconciliation Screen | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page-id="SCR-013">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-013">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-013 · Bank Reconciliation Screen</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-004">WF-004</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-015">UC-015</a><a class="chip uc" href="../requirement.html#UC-016">UC-016</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-013</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-014">API-014</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-010">TC-010</a><a class="chip tc" href="../requirement.html#TC-011">TC-011</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1 class="screen-title">หน้าจอกระทบยอดธนาคาร (Bank Reconciliation Screen)</h1>
+  <p class="screen-sub">Matching Engine จับคู่ข้อมูลฝั่งระบบ (300+ บรรทัด/วัน) กับ Bank Statement (2-3 บรรทัด) แบบ Line-by-Line ด้วยคลิกเดียว</p>
+
+  <div class="device-frame">
+    <div class="device-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">smart-erp.local/app/bank-reconciliation</span></div>
+    <div class="device-canvas">
+      <div class="mk-toolbar">
+        <span class="badge-pill green">100% Matched — 312 / 312 lines</span>
+        <button class="mk-btn violet">🔄 One-Click Sync</button>
+      </div>
+      <div class="mk-grid" style="grid-template-columns:1fr 1fr;">
+        <div>
+          <h3 style="margin-top:0">ข้อมูลฝั่งระบบ (System Data)</h3>
+          <table class="mk-table">
+            <thead><tr><th>Doc</th><th>Amount</th></tr></thead>
+            <tbody>
+              <tr><td>RCPT-2026-000487</td><td>฿890,000</td></tr>
+              <tr><td>IOU-2026-3381</td><td>-฿4,500</td></tr>
+              <tr><td>Bank Fee (auto)</td><td>-฿12</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3 style="margin-top:0">Bank Statement</h3>
+          <table class="mk-table">
+            <thead><tr><th>Line</th><th>Amount</th></tr></thead>
+            <tbody>
+              <tr><td>โอนเข้า 07/03</td><td>฿890,000</td></tr>
+              <tr><td>โอนออก 08/03</td><td>-฿4,512</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="note-box info">💡 เมื่อธนาคารหักค่าธรรมเนียม (เช่น ฿12) ระบบสร้างรายการเบิกจ่าย (IOU Expense) ให้ทันทีโดยอัตโนมัติ เพื่อให้ยอดกระทบตรงกัน 100%</div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์ที่พิมพ์ที่นี่บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้เท่านั้น กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดเป็นไฟล์แล้ววางไว้ใน make-front/ ให้ AI อ่านตอนแก้ไข UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้ไฮไลต์รายการที่จับคู่ไม่ได้เป็นสีแดงเด่นๆ... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

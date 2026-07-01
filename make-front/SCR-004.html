@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-004 — Quotation Screen | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page-id="SCR-004">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-004">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-004 · Quotation Screen</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-002">WF-002</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-004">UC-004</a><a class="chip uc" href="../requirement.html#UC-005">UC-005</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-004</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-004">API-004</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-001">TC-001</a><a class="chip tc" href="../requirement.html#TC-002">TC-002</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1 class="screen-title">หน้าจอใบเสนอราคา (Quotation Screen)</h1>
+  <p class="screen-sub">จุดตั้งต้นของวงจรฝั่งขาย — เลือกเทมเพลตมาตรฐาน/ซับซ้อน เก็บประวัติการต่อรองราคาทุกเวอร์ชันจนถึง Final Price</p>
+
+  <div class="device-frame">
+    <div class="device-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">smart-erp.local/app/quotations/QT-2026-0142</span></div>
+    <div class="device-canvas">
+      <div class="mk-toolbar">
+        <div>
+          <span class="badge-pill blue">Template: Standard</span>
+          <span class="badge-pill amber">Status: Negotiating (v3)</span>
+        </div>
+        <div>
+          <button class="mk-btn ghost">Preview PDF</button>
+          <button class="mk-btn success">Mark as Won</button>
+        </div>
+      </div>
+
+      <div class="mk-grid" style="grid-template-columns:1fr 1fr 1fr;">
+        <div class="mk-field"><label>Customer</label><div class="fake-input filled">การรถไฟแห่งประเทศไทย</div></div>
+        <div class="mk-field"><label>Project</label><div class="fake-input filled">PRJ-2026-014 (linked → SCR-001)</div></div>
+        <div class="mk-field"><label>Valid Until</label><div class="fake-input filled">31 ส.ค. 2569</div></div>
+      </div>
+
+      <table class="mk-table" style="margin-top:16px">
+        <thead><tr><th>Item</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>งานติดตั้งระบบไฟฟ้าสำรอง</td><td>1</td><td>฿850,000</td><td>฿850,000</td></tr>
+          <tr><td>2</td><td>ค่าดำเนินการ &amp; ทดสอบระบบ</td><td>1</td><td>฿70,000</td><td>฿70,000</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4" style="text-align:right;font-weight:700">Final Price</td><td style="font-weight:800">฿920,000</td></tr></tfoot>
+      </table>
+
+      <div class="note-box info" style="margin-top:18px">
+        <strong>📜 Negotiation History</strong>
+        <div class="flow-row" style="margin-top:8px">
+          <div class="flow-box">v1<br>฿1,000,000</div><span class="flow-arrow">→</span>
+          <div class="flow-box">v2<br>฿950,000</div><span class="flow-arrow">→</span>
+          <div class="flow-box hl">v3 Final<br>฿920,000</div>
+        </div>
+        ราคาสุดท้าย (Final Price) นี้จะถูกดึงไปใช้อัตโนมัติเมื่อแปลงเป็นสัญญา (SCR-005)
+      </div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์ที่พิมพ์ที่นี่บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้เท่านั้น กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดเป็นไฟล์แล้ววางไว้ใน make-front/ ให้ AI อ่านตอนแก้ไข UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้ย้าย Negotiation History ไปเป็น side panel ด้านขวาแทน... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-012 — Approval Inbox Screen | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page-id="SCR-012">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-012">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-012 · Approval Inbox Screen</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-003">WF-003</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-014">UC-014</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-012</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-013">API-013</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-013">TC-013</a><a class="chip tc" href="../requirement.html#TC-014">TC-014</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1 class="screen-title">หน้าจอกล่องอนุมัติเอกสาร (Approval Inbox Screen)</h1>
+  <p class="screen-sub">ทุกโมดูล ERP ส่งเอกสารมาอนุมัติที่นี่ผ่าน Approval Service กลาง — จบกระบวนการอนุมัติในที่เดียว</p>
+
+  <div class="device-frame">
+    <div class="device-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">smart-erp.local/app/approvals</span></div>
+    <div class="device-canvas">
+      <div class="mk-tabs">
+        <div class="mk-tab active">Pending my approval (3)</div>
+        <div class="mk-tab">Approved</div>
+        <div class="mk-tab">Rejected</div>
+        <div class="mk-tab">All</div>
+      </div>
+      <table class="mk-table">
+        <thead><tr><th>Document</th><th>Type</th><th>Requested By</th><th>Amount</th><th>Step</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>QT-2026-0142</td><td>Quotation</td><td>สมชาย (PM)</td><td>฿920,000</td><td><span class="badge-pill blue">2 of 3 — Account</span></td>
+            <td><button class="mk-btn success" style="padding:5px 12px">Approve</button> <button class="mk-btn danger" style="padding:5px 12px">Reject</button></td></tr>
+          <tr><td>IOU-2026-3381</td><td>เบิกค่าเดินทาง</td><td>วรรณา (Staff)</td><td>฿4,500</td><td><span class="badge-pill blue">1 of 4 — MD</span></td>
+            <td><button class="mk-btn success" style="padding:5px 12px">Approve</button> <button class="mk-btn danger" style="padding:5px 12px">Reject</button></td></tr>
+          <tr><td>CT-2026-0088</td><td>Contract</td><td>ปกรณ์ (Account)</td><td>฿920,000</td><td><span class="badge-pill amber">3 of 3 — Head Account</span></td>
+            <td><button class="mk-btn success" style="padding:5px 12px">Approve</button> <button class="mk-btn danger" style="padding:5px 12px">Reject</button></td></tr>
+        </tbody>
+      </table>
+      <div class="note-box danger">🚫 หากผู้ใช้ปัจจุบันไม่ได้อยู่ในลำดับสายอนุมัติของเอกสารนั้น ปุ่ม Approve/Reject จะถูกปิดใช้งานอัตโนมัติ (ป้องกันอนุมัติข้ามลำดับ)</div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์ที่พิมพ์ที่นี่บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้เท่านั้น กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดเป็นไฟล์แล้ววางไว้ใน make-front/ ให้ AI อ่านตอนแก้ไข UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้กดอนุมัติหลายรายการพร้อมกัน (bulk approve) ได้... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

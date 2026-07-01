@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-007 — Tax Invoice Screen | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page-id="SCR-007">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-007">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-007 · Tax Invoice Screen</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-002">WF-002</a><a class="chip wf" href="../requirement.html#WF-005">WF-005</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-008">UC-008</a><a class="chip uc" href="../requirement.html#UC-012">UC-012</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-007</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-007">API-007</a><a class="chip api" href="../requirement.html#API-008">API-008</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-005">TC-005</a><a class="chip tc" href="../requirement.html#TC-006">TC-006</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1 class="screen-title">หน้าจอใบกำกับภาษี (Tax Invoice Screen)</h1>
+  <p class="screen-sub">ขั้นตอนที่เข้มงวดที่สุด — เลขที่และวันที่ต้องเรียงลำดับต่อเนื่องตามกฎสรรพากร รองรับการจองเลขล่วงหน้า</p>
+
+  <div class="device-frame">
+    <div class="device-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">smart-erp.local/app/tax-invoices/new</span></div>
+    <div class="device-canvas">
+      <div class="mk-toolbar">
+        <span class="badge-pill blue">🔒 Booked Placeholder #7</span>
+        <button class="mk-btn amber">📌 Book Number in Advance</button>
+      </div>
+      <div class="mk-grid" style="grid-template-columns:1fr 1fr 1fr;">
+        <div class="mk-field"><label>Tax Invoice No.</label><div class="fake-input filled">TINV-2026-000007</div></div>
+        <div class="mk-field"><label>Issue Date</label><div class="fake-input filled">07 มี.ค. 2569</div></div>
+        <div class="mk-field"><label>Customer</label><div class="fake-input filled">การรถไฟแห่งประเทศไทย</div></div>
+      </div>
+
+      <div class="flow-row" style="margin-top:18px">
+        <div class="flow-box">#3<br>3 มี.ค.</div><span class="flow-arrow">→</span>
+        <div class="flow-box">#6<br>6 มี.ค.</div><span class="flow-arrow">→</span>
+        <div class="flow-box hl">#7 (this)<br>7 มี.ค.</div><span class="flow-arrow">→</span>
+        <div class="flow-box">#9<br>9 มี.ค.</div><span class="flow-arrow">→</span>
+        <div class="flow-box">#11<br>11 มี.ค.</div>
+      </div>
+
+      <div class="note-box danger">🚫 ห้ามข้ามลำดับเลขที่/วันที่ — หากพยายามบันทึกเลขที่ #8 ก่อนที่ #7 จะยังไม่ได้ Confirm ระบบจะปฏิเสธการบันทึกทันที (Strict Sequence Accounting)</div>
+
+      <table class="mk-table" style="margin-top:16px">
+        <thead><tr><th>Item</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr></thead>
+        <tbody><tr><td>1</td><td>ตามใบแจ้งหนี้ INV-2026-000512</td><td>1</td><td>฿920,000</td><td>฿920,000</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์ที่พิมพ์ที่นี่บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้เท่านั้น กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดเป็นไฟล์แล้ววางไว้ใน make-front/ ให้ AI อ่านตอนแก้ไข UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้ timeline นี้ scroll แนวนอนได้เมื่อมีเอกสารเยอะ... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

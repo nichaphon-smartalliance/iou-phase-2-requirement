@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-002 — LG Management Screen | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page-id="SCR-002">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-002">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-002 · LG Management Screen</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-001">WF-001</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-002">UC-002</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-002</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-002">API-002</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1 class="screen-title">หน้าจอหนังสือค้ำประกันธนาคาร (LG Management Screen)</h1>
+  <p class="screen-sub">Phase 1 — ติดตามวันหมดอายุของ Letter of Guarantee สำหรับงานราชการ พร้อมผูกค่าธรรมเนียมธนาคารอัตโนมัติ</p>
+
+  <div class="device-frame">
+    <div class="device-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">smart-erp.local/app/letter-of-guarantees</span></div>
+    <div class="device-canvas">
+      <div class="mk-toolbar">
+        <span class="badge-pill amber">2 Expiring within 30 days</span>
+        <button class="mk-btn primary">+ New LG</button>
+      </div>
+      <table class="mk-table">
+        <thead><tr><th>LG No.</th><th>Bank</th><th>Project</th><th>Issue Date</th><th>Expiry Date</th><th>Annual Fee</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>LG-2025-081</td><td>ธ.กรุงเทพ</td><td>PRJ-2026-014</td><td>25 Dec 2025</td><td>25 Dec 2026</td><td>฿12,600</td><td><span class="badge-pill green">Active</span></td></tr>
+          <tr><td>LG-2025-076</td><td>ธ.กสิกรไทย</td><td>PRJ-2025-090</td><td>03 Dec 2025</td><td>03 Aug 2026</td><td>฿8,400</td><td><span class="badge-pill amber">Expiring Soon</span></td></tr>
+          <tr><td>LG-2024-052</td><td>ธ.ไทยพาณิชย์</td><td>PRJ-2024-032</td><td>21 Dec 2024</td><td>21 Dec 2025</td><td>฿6,200</td><td><span class="badge-pill red">Expired</span></td></tr>
+        </tbody>
+      </table>
+      <div class="note-box danger">🔔 เมื่อถึงวันหมดอายุ/วันตัดรอบค่าธรรมเนียม ระบบสร้างรายการเบิกจ่าย (IOU Expense) ให้อัตโนมัติทันที ไม่ต้องคีย์มือ</div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์ที่พิมพ์ที่นี่บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้เท่านั้น กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดเป็นไฟล์แล้ววางไว้ใน make-front/ ให้ AI อ่านตอนแก้ไข UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้แจ้งเตือนล่วงหน้า 60 วันแทน 30 วัน... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

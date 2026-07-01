@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-009 — Receipt Screen | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page-id="SCR-009">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-009">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-009 · Receipt Screen</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-002">WF-002</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-010">UC-010</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-009</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-010">API-010</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1 class="screen-title">หน้าจอใบเสร็จรับเงิน (Receipt Screen)</h1>
+  <p class="screen-sub">ขั้นตอนสุดท้ายของวงจรเอกสารฝั่งขาย ก่อนนำไปสรุปในระบบบัญชีและกระทบยอดธนาคาร (SCR-013)</p>
+
+  <div class="device-frame">
+    <div class="device-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">smart-erp.local/app/receipts/new</span></div>
+    <div class="device-canvas">
+      <div class="mk-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="mk-field"><label>Receipt No.</label><div class="fake-input filled">RCPT-2026-000487</div></div>
+        <div class="mk-field"><label>Linked Tax Invoice</label><div class="fake-input filled">TINV-2026-000007</div></div>
+        <div class="mk-field"><label>Payment Method</label><div class="fake-input filled">โอนผ่านธนาคาร (ธ.กรุงเทพ)</div></div>
+        <div class="mk-field"><label>Amount Received</label><div class="fake-input filled">฿890,000</div></div>
+      </div>
+      <div class="mk-toolbar" style="margin-top:20px">
+        <span class="badge-pill green">Fully Paid</span>
+        <div>
+          <button class="mk-btn ghost">🖨 Print</button>
+          <button class="mk-btn primary">Save Receipt</button>
+        </div>
+      </div>
+      <div class="note-box info">✅ เมื่อบันทึกใบเสร็จแล้ว รายการนี้จะพร้อมสำหรับการกระทบยอดธนาคารอัตโนมัติในหน้า SCR-013</div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์ที่พิมพ์ที่นี่บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้เท่านั้น กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดเป็นไฟล์แล้ววางไว้ใน make-front/ ให้ AI อ่านตอนแก้ไข UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้รองรับการรับเงินบางส่วน (partial payment) ด้วย... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

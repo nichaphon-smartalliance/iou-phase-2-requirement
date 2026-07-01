@@ -5,467 +5,790 @@
 <title>Smart ERP Phase 2 - Requirement &amp; Use Case Traceability</title>
 <style>
   :root {
-    --blue: #0d6efd;
-    --pink: #d63384;
-    --green: #198754;
-    --amber: #b8860b;
-    --gray: #6c757d;
-    --bg: #f7f8fa;
+    --wf: #d97706;
+    --uc: #2563eb;
+    --scr: #059669;
+    --api: #7c3aed;
+    --tc: #e11d48;
+    --doc: #64748b;
+    --ink: #1e293b;
+    --bg: #f4f5f8;
   }
-  body { font-family: "Segoe UI", "Tahoma", sans-serif; margin: 0; padding: 0; background: var(--bg); color: #212529; line-height: 1.55; }
-  header { background: #0b2545; color: #fff; padding: 24px 32px; }
-  header h1 { margin: 0 0 6px 0; font-size: 1.6em; }
-  header p { margin: 0; opacity: .85; font-size: .95em; }
-  nav.toc { position: sticky; top: 0; background: #fff; border-bottom: 1px solid #ddd; padding: 10px 32px; z-index: 10; display: flex; gap: 14px; flex-wrap: wrap; font-size: .9em; }
-  nav.toc a { text-decoration: none; color: var(--blue); font-weight: 600; }
-  main { max-width: 1100px; margin: 0 auto; padding: 24px 32px 80px; }
-  h2 { border-bottom: 3px solid var(--blue); padding-bottom: 6px; margin-top: 48px; }
-  h2 .count { color: var(--gray); font-weight: normal; font-size: .6em; }
-  section { margin-bottom: 12px; }
-  article { border: 1px solid #dde1e6; background: #fff; padding: 16px 18px; margin-bottom: 14px; border-radius: 6px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
-  article h3 { margin: 0 0 8px 0; font-size: 1.05em; }
-  .id-badge { display: inline-block; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: .78em; font-weight: 700; margin-right: 8px; text-decoration: none; }
-  .id-badge.wf { background: var(--amber); }
-  .id-badge.uc { background: var(--blue); }
-  .id-badge.scr { background: var(--green); }
-  .id-badge.api { background: #6f42c1; }
-  .id-badge.tc { background: var(--pink); }
-  .id-badge.doc { background: var(--gray); }
-  a.id-ref { color: var(--pink); font-weight: 600; text-decoration: none; border-bottom: 1px dotted var(--pink); }
-  a.id-ref:hover { background: #fdf1f6; }
-  .meta { margin: 4px 0; font-size: .92em; }
-  .meta strong { color: #333; }
-  .relation { color: var(--pink); font-size: .9em; }
-  .status { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: .75em; font-weight: 700; }
+  * { box-sizing: border-box; }
+  body { font-family: "Segoe UI", "Tahoma", sans-serif; margin: 0; background: var(--bg); color: var(--ink); line-height: 1.6; }
+  a { color: inherit; }
+  .app { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+
+  /* Sidebar */
+  aside.sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: #0f172a; color: #e2e8f0; padding: 22px 18px 40px; }
+  aside.sidebar h2 { font-size: .95em; text-transform: uppercase; letter-spacing: .06em; color: #94a3b8; border: none; margin: 26px 0 10px; padding: 0; }
+  aside.sidebar .brand { font-size: 1.15em; font-weight: 800; color: #fff; line-height: 1.3; }
+  aside.sidebar .brand span { display:block; font-size: .6em; font-weight: 400; color: #94a3b8; margin-top: 4px; }
+  aside.sidebar nav a { display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 6px; text-decoration: none; color: #cbd5e1; font-size: .9em; font-weight: 600; }
+  aside.sidebar nav a:hover { background: #1e293b; color: #fff; }
+  aside.sidebar nav a .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: .85em; margin-bottom: 6px; color: #cbd5e1; }
+  .legend-item .sw { width: 14px; height: 14px; border-radius: 4px; flex: none; }
+  .flow-diagram { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; font-size: .78em; font-weight: 700; margin-top: 8px; }
+  .flow-diagram .step { padding: 3px 7px; border-radius: 5px; color: #fff; }
+  .flow-diagram .sep { color: #64748b; }
+  .howto { background: #1e293b; border-radius: 8px; padding: 10px 12px; font-size: .8em; color: #cbd5e1; margin-top: 8px; }
+  .howto b { color: #fbbf24; }
+
+  /* Main */
+  main { min-width: 0; }
+  header.banner { background: linear-gradient(120deg,#0b2545,#123a6b 55%,#0d6efd); color: #fff; padding: 34px 40px; }
+  header.banner h1 { margin: 0 0 8px; font-size: 1.55em; }
+  header.banner p { margin: 0; opacity: .88; font-size: .95em; max-width: 900px; }
+  main .content { max-width: 1150px; margin: 0 auto; padding: 8px 40px 90px; }
+
+  .callout { background: #fff8e1; border: 1px solid #fde68a; border-radius: 10px; padding: 14px 18px; margin: 20px 0; font-size: .92em; }
+  .callout b { color: #92400e; }
+
+  h2.sec { margin-top: 54px; padding-bottom: 8px; font-size: 1.35em; display: flex; align-items: center; gap: 10px; }
+  h2.sec .bar { width: 6px; height: 26px; border-radius: 3px; display: inline-block; }
+  h2.sec .count { color: var(--doc); font-weight: 400; font-size: .6em; margin-left: 4px; }
+  h2.sec.wf .bar { background: var(--wf); } h2.sec.wf { border-bottom: 2px solid var(--wf); }
+  h2.sec.uc .bar { background: var(--uc); } h2.sec.uc { border-bottom: 2px solid var(--uc); }
+  h2.sec.scr .bar { background: var(--scr); } h2.sec.scr { border-bottom: 2px solid var(--scr); }
+  h2.sec.api .bar { background: var(--api); } h2.sec.api { border-bottom: 2px solid var(--api); }
+  h2.sec.tc .bar { background: var(--tc); } h2.sec.tc { border-bottom: 2px solid var(--tc); }
+  h2.sec.matrix .bar { background: var(--ink); } h2.sec.matrix { border-bottom: 2px solid var(--ink); }
+
+  article { scroll-margin-top: 16px; border: 1px solid #e2e6ec; border-left-width: 6px; background: #fff; padding: 16px 20px; margin-bottom: 14px; border-radius: 8px; box-shadow: 0 1px 3px rgba(15,23,42,.06); transition: box-shadow .2s; }
+  article.wf-card { border-left-color: var(--wf); }
+  article.uc-card { border-left-color: var(--uc); }
+  article.scr-card { border-left-color: var(--scr); }
+  article.api-card { border-left-color: var(--api); }
+  article.tc-card { border-left-color: var(--tc); }
+  article:target { box-shadow: 0 0 0 3px rgba(37,99,235,.35); animation: flash 1.8s ease; }
+  @keyframes flash { 0% { box-shadow: 0 0 0 6px rgba(255,196,0,.85);} 100% { box-shadow: 0 0 0 3px rgba(37,99,235,.35);} }
+
+  article h3 { margin: 0 0 8px; font-size: 1.05em; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .id-badge { display: inline-flex; align-items: center; gap: 4px; color: #fff; padding: 3px 10px; border-radius: 6px; font-size: .78em; font-weight: 800; letter-spacing: .02em; }
+  .id-badge.wf { background: var(--wf); } .id-badge.uc { background: var(--uc); } .id-badge.scr { background: var(--scr); }
+  .id-badge.api { background: var(--api); } .id-badge.tc { background: var(--tc); } .id-badge.doc { background: var(--doc); }
+
+  .status { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: .72em; font-weight: 700; }
   .status.done { background: #d1f5e0; color: #0a6b3d; }
   .status.progress { background: #fff3cd; color: #856404; }
   .status.new { background: #e2e3ff; color: #3730a3; }
-  table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: .88em; }
-  table th, table td { border: 1px solid #dde1e6; padding: 6px 10px; text-align: left; vertical-align: top; }
-  table th { background: #eef1f5; }
+
+  .meta { margin: 4px 0; font-size: .92em; }
+  .meta strong { color: #333; }
   code { background: #f1f3f5; padding: 2px 5px; border-radius: 3px; font-size: .92em; }
-  .source-refs { font-size: .82em; color: var(--gray); margin-top: 6px; }
-  #matrix td { font-size: .82em; }
-  footer { text-align: center; color: var(--gray); font-size: .85em; padding: 20px; }
+
+  /* Chain / chip system */
+  .chain { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 12px 0 4px; padding: 10px 12px; background: #f8f9fb; border: 1px dashed #d7dce3; border-radius: 8px; }
+  .chain .label { font-size: .75em; color: var(--doc); font-weight: 700; margin-right: 4px; text-transform: uppercase; letter-spacing: .04em; }
+  .chip { display: inline-flex; align-items: center; padding: 4px 11px; border-radius: 20px; font-size: .78em; font-weight: 800; color: #fff; text-decoration: none; white-space: nowrap; cursor: pointer; transition: transform .12s ease, box-shadow .12s ease; }
+  a.chip:hover, .chip.hl { transform: translateY(-1px) scale(1.06); box-shadow: 0 0 0 3px rgba(0,0,0,.15); }
+  .chip.wf { background: var(--wf); } .chip.uc { background: var(--uc); } .chip.scr { background: var(--scr); }
+  .chip.api { background: var(--api); } .chip.tc { background: var(--tc); } .chip.doc { background: var(--doc); }
+  .chip.active { outline: 3px solid #111827; outline-offset: 1px; cursor: default; }
+  .chip.none { background: #cbd5e1; color: #475569; font-weight: 600; }
+  .arrow { color: #adb5bd; font-weight: 900; font-size: .95em; }
+
+  table { border-collapse: collapse; width: 100%; margin-top: 12px; font-size: .86em; }
+  table th, table td { border: 1px solid #e2e6ec; padding: 7px 10px; text-align: left; vertical-align: top; }
+  table th { color: #fff; font-size: .82em; text-transform: uppercase; letter-spacing: .03em; }
+  table th.wf { background: var(--wf); } table th.uc { background: var(--uc); } table th.scr { background: var(--scr); }
+  table th.api { background: var(--api); } table th.tc { background: var(--tc); }
+  table tbody tr:nth-child(even) { background: #fafbfc; }
+  table tbody tr:hover { background: #eef4ff; }
+
+  a.id-ref { text-decoration: none; }
+  footer { text-align: center; color: var(--doc); font-size: .85em; padding: 26px; }
+
+  .ui-toggle-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .ui-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 7px; border: 1px solid #d7dce3; background: #fff; font-weight: 700; font-size: .82em; cursor: pointer; text-decoration: none; color: var(--ink); }
+  .ui-btn:hover { background: #f1f5f9; }
+  .ui-btn.open { background: var(--scr); color: #fff; border-color: var(--scr); }
+  .ui-frame-wrap { margin-top: 14px; border: 1px solid #dde1e6; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(15,23,42,.08); }
+  .ui-frame-wrap iframe { width: 100%; height: 640px; border: 0; display: block; background: #fff; }
 </style>
 </head>
 <body>
-
-<header>
-  <h1>Smart ERP Phase 2 &mdash; Requirement &amp; Use Case Traceability Document</h1>
-  <p>ระบบบริหารจัดการรายรับอัจฉริยะ (Income &amp; Sales Management) ต่อยอดจากระบบเบิกจ่าย IOU Phase 1 &mdash; อ้างอิงจาก <span class="id-badge doc">DOC-001</span> Smart_ERP_Blueprint.pdf และ <span class="id-badge doc">DOC-002</span> สรุป.docx</p>
-</header>
-
-<nav class="toc">
-  <a href="#overview">0. Overview</a>
-  <a href="#workflows">1. Workflows (WF)</a>
-  <a href="#usecases">2. Use Cases (UC)</a>
-  <a href="#screens">3. Screens (SCR)</a>
-  <a href="#apis">4. Backend API (API)</a>
-  <a href="#testcases">5. Test Cases (TC)</a>
-  <a href="#matrix">6. Traceability Matrix</a>
-</nav>
-
-<main>
-
-<section id="overview">
-  <h2>0. Executive Overview</h2>
-  <article>
-    <h3><span class="id-badge doc">DOC-001</span> Smart ERP: พิมพ์เขียวสถาปัตยกรรมการเงินระดับองค์กร</h3>
-    <p class="meta"><strong>ที่มา:</strong> Smart_ERP_Blueprint.pdf (Confidential Internal Document, เมษายน 2567)</p>
-    <p>สรุปโครงสร้างระบบเบิกจ่าย (Phase 1 &mdash; <span class="status done">90% Completed</span>), ระบบฝั่งขาย (Phase 2 &mdash; <span class="status progress">In Development</span>) และเป้าหมายบูรณาการข้อมูลเพื่อผู้บริหาร (The Vision).</p>
-  </article>
-  <article>
-    <h3><span class="id-badge doc">DOC-002</span> เอกสารสรุปข้อมูล: โครงการพัฒนาระบบบริหารจัดการองค์กร Phase 2</h3>
-    <p class="meta"><strong>ที่มา:</strong> สรุป.docx</p>
-    <p>เป้าหมายหลัก: ขยายขีดความสามารถจากระบบบริหารรายจ่าย (Phase 1) ไปสู่ระบบบริหารรายรับและกระแสเงินสด (Phase 2) แบบเต็มรูปแบบ ตั้งแต่ต้นน้ำ (ใบเสนอราคา) ถึงปลายน้ำ (รับเงิน + กระทบยอดธนาคาร) โดยใช้ฐานข้อมูล SQL เดียวกันกับ Phase 1 (Single Source of Truth) และวางแผนให้โมดูลหลัก (ใบเสนอราคา + สายอนุมัติ) แล้วเสร็จภายใน 1-2 เดือน โดยเริ่มจากบริษัท ACE Part เป็นลำดับแรก</p>
-    <p class="meta"><strong>Companies in scope (หัวเอกสารที่ต้องสลับได้):</strong> ACE Part, Smart, Flow</p>
-  </article>
-</section>
-
-<section id="workflows">
-  <h2>1. Workflows <span class="count">(WF-001 &ndash; WF-005)</span></h2>
-
-  <article id="WF-001">
-    <h3><span class="id-badge wf">WF-001</span> ระบบเบิกจ่าย IOU &amp; Expense Management <span class="status done">Phase 1 &mdash; 90% Completed / Reference</span></h3>
-    <p>ควบคุมการนำเงินออกจากบริษัทผ่านฐานข้อมูลเดียว (IOU Core Database) ครอบคลุม Master Data, IOU &amp; Advance, Travel Expense, Document Tracking. เป็นฐานข้อมูล (Base Layer) ที่ Phase 2 เรียกใช้ร่วมกัน</p>
-    <p class="relation"><strong>Contains Use Cases:</strong> <a class="id-ref" href="#UC-001">UC-001</a>, <a class="id-ref" href="#UC-002">UC-002</a>, <a class="id-ref" href="#UC-003">UC-003</a></p>
-    <p class="source-refs">อ้างอิง: DOC-001 หน้า 2-3, 5</p>
-  </article>
-
-  <article id="WF-002">
-    <h3><span class="id-badge wf">WF-002</span> วงจรเอกสารฝั่งขาย (Sales Document Cycle) <span class="status progress">Phase 2</span></h3>
-    <p>กระบวนการต้นน้ำถึงปลายน้ำของฝั่งขาย: ใบเสนอราคา &rarr; สัญญา &rarr; ใบส่งมอบงาน/ใบแจ้งหนี้/ใบวางบิล &rarr; ใบกำกับภาษี &rarr; ใบลดหนี้ &rarr; ใบเสร็จรับเงิน ข้อมูลไหลต่อกันเป็นสายน้ำเดียว (Flow) ลดการคีย์ซ้ำ และดึง Master Data จาก Phase 1 มาใช้ร่วมกัน</p>
-    <p class="relation"><strong>Contains Use Cases:</strong> <a class="id-ref" href="#UC-004">UC-004</a>, <a class="id-ref" href="#UC-005">UC-005</a>, <a class="id-ref" href="#UC-006">UC-006</a>, <a class="id-ref" href="#UC-007">UC-007</a>, <a class="id-ref" href="#UC-008">UC-008</a>, <a class="id-ref" href="#UC-009">UC-009</a>, <a class="id-ref" href="#UC-010">UC-010</a></p>
-    <p class="source-refs">อ้างอิง: DOC-001 หน้า 6-10, DOC-002 หัวข้อ 2.1</p>
-  </article>
-
-  <article id="WF-003">
-    <h3><span class="id-badge wf">WF-003</span> ระบบอนุมัติกลาง (Central Approval Workflow) <span class="status new">New / Cross-cutting</span></h3>
-    <p>Approval Service ส่วนกลางที่ทุกโมดูลของ ERP เรียกใช้ร่วมกัน สายอนุมัติกำหนดผ่าน Database Config เพื่อรองรับ Business Logic ที่แตกต่างกันของแต่ละบริษัทในเครือ (PM &rarr; MD &rarr; Account &rarr; Head Account / CEO) โดยไม่ต้องแก้โค้ดใหม่ทั้งหมด</p>
-    <p class="relation"><strong>Contains Use Cases:</strong> <a class="id-ref" href="#UC-013">UC-013</a>, <a class="id-ref" href="#UC-014">UC-014</a></p>
-    <p class="source-refs">อ้างอิง: DOC-001 หน้า 4, 13, DOC-002 หัวข้อ 3.2</p>
-  </article>
-
-  <article id="WF-004">
-    <h3><span class="id-badge wf">WF-004</span> กระทบยอดธนาคารและแดชบอร์ดผู้บริหาร (Bank Reconciliation &amp; Executive Dashboard) <span class="status new">The Vision</span></h3>
-    <p>เป้าหมายสูงสุด: กระทบยอดบัญชีอัตโนมัติ (Automated Bank Rec/ROV) แบบ Line-by-Line ระหว่างข้อมูลระบบกับ Bank Statement พร้อม Cash Flow Dashboard สำหรับผู้บริหาร</p>
-    <p class="relation"><strong>Contains Use Cases:</strong> <a class="id-ref" href="#UC-015">UC-015</a>, <a class="id-ref" href="#UC-016">UC-016</a>, <a class="id-ref" href="#UC-017">UC-017</a></p>
-    <p class="source-refs">อ้างอิง: DOC-001 หน้า 2, 11-12, DOC-002 หัวข้อ 2.2</p>
-  </article>
-
-  <article id="WF-005">
-    <h3><span class="id-badge wf">WF-005</span> ระบบฟอร์มเอกสารยืดหยุ่นและควบคุมเลขที่เอกสาร (Dynamic Form &amp; Sequence Control) <span class="status new">Technical Requirement</span></h3>
-    <p>ความสามารถเชิงเทคนิคที่รองรับ WF-002: Dynamic Form Generator สำหรับสลับหัวเอกสาร/เทมเพลตตามลูกค้าแต่ละราย (เช่น การรถไฟ) และระบบจองเลขที่ใบกำกับภาษีล่วงหน้าเพื่อรักษาลำดับเลข-วันที่ตามกฎสรรพากร</p>
-    <p class="relation"><strong>Contains Use Cases:</strong> <a class="id-ref" href="#UC-011">UC-011</a>, <a class="id-ref" href="#UC-012">UC-012</a></p>
-    <p class="source-refs">อ้างอิง: DOC-001 หน้า 6-9, DOC-002 หัวข้อ 3.1, 3.3</p>
-  </article>
-</section>
-
-<section id="usecases">
-  <h2>2. Use Cases <span class="count">(UC-001 &ndash; UC-017)</span></h2>
-
-  <article id="UC-001">
-    <h3><span class="id-badge uc">UC-001</span> จัดการข้อมูลหลัก (Master Data Management)</h3>
-    <p><strong>Actor:</strong> Admin / Account</p>
-    <p>จัดการข้อมูลโปรเจกต์ (Project-based Accounting), รายชื่อพนักงาน, สิทธิ์การใช้งาน (Permissions) และคู่ค้า (Supplier/Customer) เป็นฐานข้อมูลกลางที่ WF-002 เรียกใช้ร่วมกัน</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-001">WF-001</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-001">SCR-001</a></p>
-  </article>
-
-  <article id="UC-002">
-    <h3><span class="id-badge uc">UC-002</span> ติดตามหนังสือค้ำประกันธนาคาร (LG Management)</h3>
-    <p><strong>Actor:</strong> Account</p>
-    <p>ติดตามวันหมดอายุของหนังสือค้ำประกัน (Letter of Guarantee) สำหรับงานราชการ และเชื่อมโยงค่าธรรมเนียมธนาคารเข้าเป็นรายจ่ายบริษัทโดยอัตโนมัติเมื่อถึงกำหนด</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-001">WF-001</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-002">SCR-002</a></p>
-  </article>
-
-  <article id="UC-003">
-    <h3><span class="id-badge uc">UC-003</span> จัดทำงบประมาณโครงการ (Project &amp; BOQ Management)</h3>
-    <p><strong>Actor:</strong> PM</p>
-    <p>ทุกการเบิกจ่ายต้องผูกกับเลขโปรเจกต์เพื่อควบคุมต้นทุน (Cost Control) เทียบกับแผน BOQ/BOM ป้องกันงบบานปลาย</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-001">WF-001</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-003">SCR-003</a></p>
-  </article>
-
-  <article id="UC-004">
-    <h3><span class="id-badge uc">UC-004</span> สร้างใบเสนอราคา (Create Quotation)</h3>
-    <p><strong>Actor:</strong> PM / Account (ACE Part เป็นบริษัทนำร่อง)</p>
-    <p>จุดตั้งต้นของข้อมูลฝั่งขาย เลือกเทมเพลตมาตรฐานหรือซับซ้อนตามลูกค้า (ดู <a class="id-ref" href="#UC-011">UC-011</a>)</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-002">WF-002</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-004">SCR-004</a></p>
-  </article>
-
-  <article id="UC-005">
-    <h3><span class="id-badge uc">UC-005</span> ต่อรองราคาและบันทึกประวัติ (Negotiate &amp; Track Quotation Revisions)</h3>
-    <p><strong>Actor:</strong> PM / Account</p>
-    <p>เก็บประวัติการแก้ไขราคาหลายเวอร์ชันจนถึง Final Price และสถานะการประมูล (ชนะ/แพ้) ซึ่ง Final Price จะกลายเป็นราคาตามสัญญา</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-002">WF-002</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-004">SCR-004</a></p>
-  </article>
-
-  <article id="UC-006">
-    <h3><span class="id-badge uc">UC-006</span> แปลงใบเสนอราคาเป็นสัญญา (Convert Quotation to Contract)</h3>
-    <p><strong>Actor:</strong> Account</p>
-    <p>คีย์ราคาและรายละเอียดไอเทมตามสัญญาโดยอ้างอิงราคาสุดท้ายจากใบเสนอราคา เพื่อใช้เป็นฐานข้อมูลวางบิล</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-002">WF-002</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-005">SCR-005</a></p>
-  </article>
-
-  <article id="UC-007">
-    <h3><span class="id-badge uc">UC-007</span> ออกใบส่งมอบงาน / ใบแจ้งหนี้ / ใบวางบิล</h3>
-    <p><strong>Actor:</strong> Account</p>
-    <p>สามารถเลือกออกเอกสาร 3 แบบ (Delivery Note / Invoice / Billing Note) จาก Data Core เดียวกัน (ลูกหนี้+สัญญา+Running Number เดิม) พร้อมเปลี่ยนหัวเอกสารได้ตามบริษัทในเครือ (Configurable Headers) โดยไม่ต้องออกเอกสารซ้ำหลายใบสำหรับงานเดียวกัน</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-002">WF-002</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-006">SCR-006</a></p>
-  </article>
-
-  <article id="UC-008">
-    <h3><span class="id-badge uc">UC-008</span> ออกใบกำกับภาษี (Issue Tax Invoice)</h3>
-    <p><strong>Actor:</strong> Account</p>
-    <p>ขั้นตอนที่ต้องการความเข้มงวดสูงสุด: เลขที่และวันที่ต้องเรียงลำดับต่อเนื่องตามกฎสรรพากร (ห้ามเลขข้าม/ห้ามกระโดด) ใช้ร่วมกับระบบจองเลขล่วงหน้า (<a class="id-ref" href="#UC-012">UC-012</a>)</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-002">WF-002</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-007">SCR-007</a></p>
-  </article>
-
-  <article id="UC-009">
-    <h3><span class="id-badge uc">UC-009</span> ออกใบลดหนี้อ้างอิงใบกำกับภาษีเดิม (Issue Credit Note)</h3>
-    <p><strong>Actor:</strong> Account</p>
-    <p>ใบลดหนี้ไม่สามารถลอยตัวได้ ต้องมีฟังก์ชันดึงข้อมูลอ้างอิง (Tagging/Linking) กลับไปยังใบกำกับภาษีตั้งต้นเสมอ รองรับทั้งตัดยอดเต็ม (Full Refund) และตัดย่อย (Partial Refund) พร้อมคำนวณยอดคงเหลืออัตโนมัติ</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-002">WF-002</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-008">SCR-008</a></p>
-  </article>
-
-  <article id="UC-010">
-    <h3><span class="id-badge uc">UC-010</span> ออกใบเสร็จรับเงิน (Issue Receipt)</h3>
-    <p><strong>Actor:</strong> Account</p>
-    <p>ขั้นตอนสุดท้ายของวงจรเอกสารฝั่งขาย สิ้นสุดกระบวนการฝั่งเอกสารก่อนนำไปสรุปในระบบบัญชีและกระทบยอดธนาคาร (<a class="id-ref" href="#UC-015">UC-015</a>)</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-002">WF-002</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-009">SCR-009</a></p>
-  </article>
-
-  <article id="UC-011">
-    <h3><span class="id-badge uc">UC-011</span> เลือก/สร้างเทมเพลตเอกสารแบบยืดหยุ่น (Dynamic Document Template)</h3>
-    <p><strong>Actor:</strong> PM / Account</p>
-    <p>Quotation Engine รองรับ 2 รูปแบบ: Standard Template (หัวบริษัท 6 แบบ, รายการเรียบง่าย) และ Complex Template (โครงสร้างซับซ้อน Text-heavy เช่น แบบฟอร์มการรถไฟ ที่ต้องการ Strict Formatting และ Breakdown ละเอียด) ผู้ใช้เลือกฟอร์มได้เองโดยไม่ต้องเขียนโค้ดใหม่</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-005">WF-005</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-010">SCR-010</a></p>
-  </article>
-
-  <article id="UC-012">
-    <h3><span class="id-badge uc">UC-012</span> จองเลขที่ใบกำกับภาษีล่วงหน้า (Pre-book Tax Invoice Number)</h3>
-    <p><strong>Actor:</strong> Account</p>
-    <p>ระบบ Number Booking: ล็อคเลขที่และวันที่ไว้ล่วงหน้า (Locked Placeholder) สำหรับเอกสารที่รู้ว่าจะมาแน่นอน เพื่อป้องกันการข้ามลำดับ (Strict Sequence) และรักษาความถูกต้องทางบัญชี 100%</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-005">WF-005</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-007">SCR-007</a></p>
-  </article>
-
-  <article id="UC-013">
-    <h3><span class="id-badge uc">UC-013</span> กำหนดค่าสายอนุมัติตามบริษัท/ประเภทค่าใช้จ่าย (Configure Approval Line)</h3>
-    <p><strong>Actor:</strong> Admin</p>
-    <p>ตั้งค่าความยืดหยุ่นของ Line of Approve ผ่าน Database Config เพื่อรองรับ Business Logic ที่ต่างกันของแต่ละบริษัทในเครือ (เช่น Smart Business Flow: ผู้ขอเบิก &rarr; MD/CEO &rarr; Account &rarr; Head Account, หรือ ACE Business Flow: ผู้ขอเบิก &rarr; PM &rarr; สายอนุมัติตามประเภทการเบิก) โดยไม่ต้องแก้โค้ด</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-003">WF-003</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-011">SCR-011</a></p>
-  </article>
-
-  <article id="UC-014">
-    <h3><span class="id-badge uc">UC-014</span> อนุมัติเอกสารผ่าน Approval Service กลาง (Approve Document)</h3>
-    <p><strong>Actor:</strong> PM / MD / Account / Head Account / CEO</p>
-    <p>ทุกโมดูลของ ERP (เบิกจ่าย, ใบเสนอราคา, สัญญา ฯลฯ) เรียกใช้บริการอนุมัติกลางร่วมกัน เพื่อให้กระบวนการอนุมัติจบในที่เดียว</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-003">WF-003</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-012">SCR-012</a></p>
-  </article>
-
-  <article id="UC-015">
-    <h3><span class="id-badge uc">UC-015</span> กระทบยอดธนาคารอัตโนมัติ (Automated Bank Reconciliation)</h3>
-    <p><strong>Actor:</strong> Account</p>
-    <p>Matching Engine เปรียบเทียบข้อมูลฝั่งระบบ (300+ บรรทัด/วัน: ใบเสร็จ, Invoice, pending expenses) กับ Bank Statement (2-3 บรรทัด) แบบ Line-by-Line ให้ยอดกระทบตรงกัน 100% ด้วยการคลิกเดียว (One-click sync)</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-004">WF-004</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-013">SCR-013</a></p>
-  </article>
-
-  <article id="UC-016">
-    <h3><span class="id-badge uc">UC-016</span> จัดการค่าธรรมเนียม/ค่าปรับธนาคารอัตโนมัติ</h3>
-    <p><strong>Actor:</strong> ระบบ (Automated)</p>
-    <p>เมื่อธนาคารหักค่าธรรมเนียม (เช่น 12 บาท) ระบบสร้างรายการเบิกจ่าย (IOU Expense) ให้ทันทีโดยอัตโนมัติ รวมถึงจัดการค่าปรับ (Penalties) ฝั่งขาย</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-004">WF-004</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-013">SCR-013</a></p>
-  </article>
-
-  <article id="UC-017">
-    <h3><span class="id-badge uc">UC-017</span> ดูแดชบอร์ดกระแสเงินสดและพยากรณ์รายได้ (Cash Flow Dashboard)</h3>
-    <p><strong>Actor:</strong> ผู้บริหาร (Executive/CEO)</p>
-    <p>ภาพรวมเงินเข้า-ออก (Cash Flow) ทั้งบริษัทในหน้าเดียว, พยากรณ์รายได้ 3 เดือนข้างหน้า และรายจ่ายค้างจ่ายแยกตามโปรเจกต์ ดึงข้อมูลจากฐานข้อมูลเดียว (Single Source of Truth) เพื่อหมดปัญหาตัวเลขฝั่งขายและฝั่งบัญชีไม่ตรงกัน</p>
-    <p class="relation"><strong>Belongs to Workflow:</strong> <a class="id-ref" href="#WF-004">WF-004</a> &nbsp;|&nbsp; <strong>Linked Screens:</strong> <a class="id-ref" href="#SCR-014">SCR-014</a></p>
-  </article>
-</section>
-
-<section id="screens">
-  <h2>3. Screens / User Interface <span class="count">(SCR-001 &ndash; SCR-014)</span></h2>
-
-  <article id="SCR-001"><h3><span class="id-badge scr">SCR-001</span> หน้าจอข้อมูลหลัก (Master Data Screen)</h3>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-001">UC-001</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-001">API-001</a></p></article>
-
-  <article id="SCR-002"><h3><span class="id-badge scr">SCR-002</span> หน้าจอหนังสือค้ำประกัน (LG Management Screen)</h3>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-002">UC-002</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-002">API-002</a></p></article>
-
-  <article id="SCR-003"><h3><span class="id-badge scr">SCR-003</span> หน้าจองบประมาณโครงการ (BOQ/BOM Screen)</h3>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-003">UC-003</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-003">API-003</a></p></article>
-
-  <article id="SCR-004"><h3><span class="id-badge scr">SCR-004</span> หน้าจอใบเสนอราคา (Quotation Screen)</h3>
-    <p>ฟอร์มสร้าง/แก้ไขใบเสนอราคา แสดงประวัติเวอร์ชันและสถานะชนะ/แพ้ ฝัง Template Selector (<a class="id-ref" href="#SCR-010">SCR-010</a>)</p>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-004">UC-004</a>, <a class="id-ref" href="#UC-005">UC-005</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-004">API-004</a></p></article>
-
-  <article id="SCR-005"><h3><span class="id-badge scr">SCR-005</span> หน้าจอสัญญา (Contract Screen)</h3>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-006">UC-006</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-005">API-005</a></p></article>
-
-  <article id="SCR-006"><h3><span class="id-badge scr">SCR-006</span> หน้าจอวางบิล/ใบแจ้งหนี้ (Billing Screen)</h3>
-    <p>รองรับ 3 mode เอกสารจาก Data Core เดียวกัน: Delivery Note / Invoice / Billing Note พร้อมสลับหัวเอกสารตามบริษัท</p>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-007">UC-007</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-006">API-006</a></p></article>
-
-  <article id="SCR-007"><h3><span class="id-badge scr">SCR-007</span> หน้าจอใบกำกับภาษี (Tax Invoice Screen)</h3>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-008">UC-008</a>, <a class="id-ref" href="#UC-012">UC-012</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-007">API-007</a>, <a class="id-ref" href="#API-008">API-008</a></p></article>
-
-  <article id="SCR-008"><h3><span class="id-badge scr">SCR-008</span> หน้าจอใบลดหนี้ (Credit Note Screen)</h3>
-    <p>บังคับให้ผู้ใช้เลือกอ้างอิงใบกำกับภาษีต้นฉบับก่อนเสมอ (ไม่อนุญาตให้สร้างแบบลอยตัว)</p>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-009">UC-009</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-009">API-009</a></p></article>
-
-  <article id="SCR-009"><h3><span class="id-badge scr">SCR-009</span> หน้าจอใบเสร็จรับเงิน (Receipt Screen)</h3>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-010">UC-010</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-010">API-010</a></p></article>
-
-  <article id="SCR-010"><h3><span class="id-badge scr">SCR-010</span> หน้าจอตัวจัดการเทมเพลตเอกสาร (Dynamic Form Generator Screen)</h3>
-    <p>ให้ PM/Account เลือก Standard หรือ Complex Template ล่วงหน้า และกำหนดค่า Configurable Headers</p>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-011">UC-011</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-011">API-011</a></p></article>
-
-  <article id="SCR-011"><h3><span class="id-badge scr">SCR-011</span> หน้าจอตั้งค่าสายอนุมัติ (Approval Line Config Screen)</h3>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-013">UC-013</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-012">API-012</a></p></article>
-
-  <article id="SCR-012"><h3><span class="id-badge scr">SCR-012</span> หน้าจอกล่องอนุมัติเอกสาร (Approval Inbox Screen)</h3>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-014">UC-014</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-013">API-013</a></p></article>
-
-  <article id="SCR-013"><h3><span class="id-badge scr">SCR-013</span> หน้าจอกระทบยอดธนาคาร (Bank Reconciliation Screen)</h3>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-015">UC-015</a>, <a class="id-ref" href="#UC-016">UC-016</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-014">API-014</a></p></article>
-
-  <article id="SCR-014"><h3><span class="id-badge scr">SCR-014</span> หน้าจอ Executive Dashboard (Cash Flow Dashboard Screen)</h3>
-    <p class="relation"><strong>Realizes:</strong> <a class="id-ref" href="#UC-017">UC-017</a> &nbsp;|&nbsp; <strong>Calls APIs:</strong> <a class="id-ref" href="#API-015">API-015</a></p></article>
-</section>
-
-<section id="apis">
-  <h2>4. Backend / API <span class="count">(API-001 &ndash; API-015)</span></h2>
-
-  <article id="API-001"><h3><span class="id-badge api">API-001</span> Master Data API</h3>
-    <p><strong>Endpoint:</strong> <code>GET/POST /api/v1/master-data/{projects|employees|partners}</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-001">SCR-001</a></p></article>
-
-  <article id="API-002"><h3><span class="id-badge api">API-002</span> Letter of Guarantee API</h3>
-    <p><strong>Endpoint:</strong> <code>GET/POST /api/v1/letter-of-guarantees</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-002">SCR-002</a></p></article>
-
-  <article id="API-003"><h3><span class="id-badge api">API-003</span> BOQ API</h3>
-    <p><strong>Endpoint:</strong> <code>GET/POST /api/v1/projects/{id}/boq</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-003">SCR-003</a></p></article>
-
-  <article id="API-004"><h3><span class="id-badge api">API-004</span> Quotation API</h3>
-    <p><strong>Endpoint:</strong> <code>POST /api/v1/quotations</code>, <code>PUT /api/v1/quotations/{id}</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-004">SCR-004</a> &nbsp;|&nbsp; <strong>Validated by Test Cases:</strong> <a class="id-ref" href="#TC-001">TC-001</a>, <a class="id-ref" href="#TC-002">TC-002</a></p></article>
-
-  <article id="API-005"><h3><span class="id-badge api">API-005</span> Contract Conversion API</h3>
-    <p><strong>Endpoint:</strong> <code>POST /api/v1/quotations/{id}/convert-to-contract</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-005">SCR-005</a> &nbsp;|&nbsp; <strong>Validated by Test Cases:</strong> <a class="id-ref" href="#TC-003">TC-003</a></p></article>
-
-  <article id="API-006"><h3><span class="id-badge api">API-006</span> Billing API</h3>
-    <p><strong>Endpoint:</strong> <code>POST /api/v1/invoices</code> (type: delivery-note | invoice | billing-note)</p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-006">SCR-006</a> &nbsp;|&nbsp; <strong>Validated by Test Cases:</strong> <a class="id-ref" href="#TC-004">TC-004</a></p></article>
-
-  <article id="API-007"><h3><span class="id-badge api">API-007</span> Tax Invoice API</h3>
-    <p><strong>Endpoint:</strong> <code>POST /api/v1/tax-invoices</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-007">SCR-007</a> &nbsp;|&nbsp; <strong>Validated by Test Cases:</strong> <a class="id-ref" href="#TC-006">TC-006</a></p></article>
-
-  <article id="API-008"><h3><span class="id-badge api">API-008</span> Number Booking API</h3>
-    <p><strong>Endpoint:</strong> <code>POST /api/v1/tax-invoices/book-number</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-007">SCR-007</a> &nbsp;|&nbsp; <strong>Validated by Test Cases:</strong> <a class="id-ref" href="#TC-005">TC-005</a></p></article>
-
-  <article id="API-009"><h3><span class="id-badge api">API-009</span> Credit Note API</h3>
-    <p><strong>Endpoint:</strong> <code>POST /api/v1/credit-notes</code> (requires <code>reference_tax_invoice_id</code>)</p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-008">SCR-008</a> &nbsp;|&nbsp; <strong>Validated by Test Cases:</strong> <a class="id-ref" href="#TC-007">TC-007</a>, <a class="id-ref" href="#TC-008">TC-008</a></p></article>
-
-  <article id="API-010"><h3><span class="id-badge api">API-010</span> Receipt API</h3>
-    <p><strong>Endpoint:</strong> <code>POST /api/v1/receipts</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-009">SCR-009</a></p></article>
-
-  <article id="API-011"><h3><span class="id-badge api">API-011</span> Template Generator API</h3>
-    <p><strong>Endpoint:</strong> <code>GET/POST /api/v1/templates</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-010">SCR-010</a> &nbsp;|&nbsp; <strong>Validated by Test Cases:</strong> <a class="id-ref" href="#TC-009">TC-009</a></p></article>
-
-  <article id="API-012"><h3><span class="id-badge api">API-012</span> Approval Line Config API</h3>
-    <p><strong>Endpoint:</strong> <code>GET/POST /api/v1/approval-lines</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-011">SCR-011</a> &nbsp;|&nbsp; <strong>Validated by Test Cases:</strong> <a class="id-ref" href="#TC-013">TC-013</a></p></article>
-
-  <article id="API-013"><h3><span class="id-badge api">API-013</span> Approval Action API</h3>
-    <p><strong>Endpoint:</strong> <code>POST /api/v1/approvals/{id}/action</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-012">SCR-012</a> &nbsp;|&nbsp; <strong>Validated by Test Cases:</strong> <a class="id-ref" href="#TC-013">TC-013</a>, <a class="id-ref" href="#TC-014">TC-014</a></p></article>
-
-  <article id="API-014"><h3><span class="id-badge api">API-014</span> Bank Reconciliation Matching API</h3>
-    <p><strong>Endpoint:</strong> <code>POST /api/v1/bank-rec/match</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-013">SCR-013</a> &nbsp;|&nbsp; <strong>Validated by Test Cases:</strong> <a class="id-ref" href="#TC-010">TC-010</a>, <a class="id-ref" href="#TC-011">TC-011</a></p></article>
-
-  <article id="API-015"><h3><span class="id-badge api">API-015</span> Dashboard API</h3>
-    <p><strong>Endpoint:</strong> <code>GET /api/v1/dashboard/cashflow</code>, <code>GET /api/v1/dashboard/income-forecast</code></p>
-    <p class="relation"><strong>Used by Screens:</strong> <a class="id-ref" href="#SCR-014">SCR-014</a> &nbsp;|&nbsp; <strong>Validated by Test Cases:</strong> <a class="id-ref" href="#TC-012">TC-012</a></p></article>
-</section>
-
-<section id="testcases">
-  <h2>5. Test Cases <span class="count">(TC-001 &ndash; TC-014)</span></h2>
-
-  <article id="TC-001"><h3><span class="id-badge tc">TC-001</span> สร้างใบเสนอราคาสำเร็จด้วยข้อมูลถูกต้อง</h3>
-    <p><strong>Scenario:</strong> ผู้ใช้กรอกข้อมูลลูกค้า รายการ และเลือกเทมเพลตครบถ้วน แล้วกดบันทึก</p>
-    <p><strong>Expected Result:</strong> ระบบสร้างใบเสนอราคาสถานะ Draft พร้อมเลขที่เอกสารอัตโนมัติ</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-004">UC-004</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-004">SCR-004</a></p></article>
-
-  <article id="TC-002"><h3><span class="id-badge tc">TC-002</span> บันทึกประวัติการแก้ไขราคาและสถานะชนะ/แพ้ถูกต้อง</h3>
-    <p><strong>Scenario:</strong> แก้ไขราคาใบเสนอราคาหลายครั้งแล้วปิดสถานะเป็น "ชนะ"</p>
-    <p><strong>Expected Result:</strong> ทุกเวอร์ชันถูกเก็บ Log และราคาล่าสุดถูกทำเครื่องหมายเป็น Final Price</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-005">UC-005</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-004">SCR-004</a></p></article>
-
-  <article id="TC-003"><h3><span class="id-badge tc">TC-003</span> แปลงใบเสนอราคาเป็นสัญญาและดึงราคาสุดท้ายถูกต้อง</h3>
-    <p><strong>Scenario:</strong> กดปุ่มแปลงเป็นสัญญาจากใบเสนอราคาสถานะ "ชนะ"</p>
-    <p><strong>Expected Result:</strong> สัญญาใหม่ถูกสร้างพร้อมราคา/รายการที่ตรงกับ Final Price ทุกประการ</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-006">UC-006</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-005">SCR-005</a></p></article>
-
-  <article id="TC-004"><h3><span class="id-badge tc">TC-004</span> สร้างใบแจ้งหนี้จากสัญญาพร้อมเลือกหัวเอกสารตามบริษัทในเครือ</h3>
-    <p><strong>Scenario:</strong> เลือกออกเอกสารประเภท Invoice จากสัญญา และเลือกหัวเอกสารบริษัท "Flow"</p>
-    <p><strong>Expected Result:</strong> เอกสารแสดงหัวบริษัท Flow แต่ข้อมูล Running Number และเนื้อหายังอ้างอิงฐานข้อมูลเดิม</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-007">UC-007</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-006">SCR-006</a></p></article>
-
-  <article id="TC-005"><h3><span class="id-badge tc">TC-005</span> จองเลขใบกำกับภาษีล่วงหน้าสำเร็จและ Lock Placeholder</h3>
-    <p><strong>Scenario:</strong> จองเลขที่ลำดับที่ 7 ล่วงหน้าก่อนเอกสารจริงจะมาถึง</p>
-    <p><strong>Expected Result:</strong> เลขที่ 7 ถูกล็อคเป็น Placeholder และไม่สามารถถูกใช้ซ้ำหรือถูกข้ามได้</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-012">UC-012</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-007">SCR-007</a></p></article>
-
-  <article id="TC-006"><h3><span class="id-badge tc">TC-006</span> ออกใบกำกับภาษีตามลำดับเลขที่และวันที่ถูกต้อง</h3>
-    <p><strong>Scenario:</strong> ออกใบกำกับภาษีฉบับถัดไปหลังเลขที่ถูกจองไว้แล้ว</p>
-    <p><strong>Expected Result:</strong> ระบบปฏิเสธหากวันที่หรือเลขที่ไม่เรียงลำดับต่อเนื่อง (ห้ามเลขข้าม/ห้ามกระโดด)</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-008">UC-008</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-007">SCR-007</a></p></article>
-
-  <article id="TC-007"><h3><span class="id-badge tc">TC-007</span> ปฏิเสธการสร้างใบลดหนี้ที่ไม่มีการอ้างอิงใบกำกับภาษีต้นฉบับ</h3>
-    <p><strong>Scenario:</strong> ผู้ใช้พยายามสร้างใบลดหนี้โดยไม่เลือกใบกำกับภาษีอ้างอิง</p>
-    <p><strong>Expected Result:</strong> ระบบแสดง Error และไม่อนุญาตให้บันทึก</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-009">UC-009</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-008">SCR-008</a></p></article>
-
-  <article id="TC-008"><h3><span class="id-badge tc">TC-008</span> คำนวณยอดคงเหลือถูกต้องทั้งกรณีตัดยอดเต็มและตัดยอดบางส่วน</h3>
-    <p><strong>Scenario:</strong> สร้างใบลดหนี้แบบตัดยอดบางส่วน 2 ครั้งจากใบกำกับภาษีเดียวกัน</p>
-    <p><strong>Expected Result:</strong> ยอดคงเหลือลดลงถูกต้องตามลำดับ และป้องกันการตัดยอดเกินยอดคงเหลือ</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-009">UC-009</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-008">SCR-008</a></p></article>
-
-  <article id="TC-009"><h3><span class="id-badge tc">TC-009</span> เลือกเทมเพลตมาตรฐานและเทมเพลตซับซ้อน (การรถไฟ) แสดงผลถูกต้อง</h3>
-    <p><strong>Scenario:</strong> สลับเลือก Standard Template และ Complex Template บนใบเสนอราคาเดียวกัน</p>
-    <p><strong>Expected Result:</strong> Layout เปลี่ยนตาม Template ที่เลือกโดยข้อมูลรายการไม่สูญหาย</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-011">UC-011</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-010">SCR-010</a></p></article>
-
-  <article id="TC-010"><h3><span class="id-badge tc">TC-010</span> กระทบยอดธนาคารอัตโนมัติจับคู่ยอดได้ 100% แบบ Line-by-Line</h3>
-    <p><strong>Scenario:</strong> นำเข้า Bank Statement ที่มีรายการตรงกับเอกสารระบบทั้งหมด</p>
-    <p><strong>Expected Result:</strong> ระบบจับคู่รายการสำเร็จ 100% และแสดงสถานะ Fully Reconciled</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-015">UC-015</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-013">SCR-013</a></p></article>
-
-  <article id="TC-011"><h3><span class="id-badge tc">TC-011</span> หักค่าธรรมเนียมธนาคารอัตโนมัติสร้างรายการเบิกจ่ายทันที</h3>
-    <p><strong>Scenario:</strong> Bank Statement มีรายการหักค่าธรรมเนียม 12 บาท</p>
-    <p><strong>Expected Result:</strong> ระบบสร้างรายการ IOU Expense มูลค่า 12 บาททันทีโดยไม่ต้องคีย์มือ</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-016">UC-016</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-013">SCR-013</a></p></article>
-
-  <article id="TC-012"><h3><span class="id-badge tc">TC-012</span> แสดงแดชบอร์ด Cash Flow และพยากรณ์รายได้ 3 เดือนตรงกับฐานข้อมูลเดียว</h3>
-    <p><strong>Scenario:</strong> ผู้บริหารเปิดหน้า Dashboard หลังมีรายการรับ/จ่ายใหม่เข้าระบบ</p>
-    <p><strong>Expected Result:</strong> กราฟ Cash Flow และตัวเลขพยากรณ์อัปเดตตรงกับข้อมูลฝั่งบัญชีและฝั่งขายแบบ Real-time</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-017">UC-017</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-014">SCR-014</a></p></article>
-
-  <article id="TC-013"><h3><span class="id-badge tc">TC-013</span> ส่งเอกสารเข้าสายอนุมัติที่ถูกต้องตามบริษัท/ประเภทค่าใช้จ่ายที่ Config ไว้</h3>
-    <p><strong>Scenario:</strong> ผู้ขอเบิกจากบริษัท ACE ส่งเอกสารประเภทค่าใช้จ่ายที่ตั้งค่าสายอนุมัติแบบ Category-based ไว้</p>
-    <p><strong>Expected Result:</strong> เอกสารถูกส่งไปตามลำดับผู้อนุมัติที่ถูก Config ไว้ในฐานข้อมูล ตรงกับประเภทค่าใช้จ่ายที่เลือก</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-013">UC-013</a>, <a class="id-ref" href="#UC-014">UC-014</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-011">SCR-011</a>, <a class="id-ref" href="#SCR-012">SCR-012</a></p></article>
-
-  <article id="TC-014"><h3><span class="id-badge tc">TC-014</span> ป้องกันผู้ไม่มีสิทธิ์หรืออนุมัติข้ามลำดับในสายอนุมัติ</h3>
-    <p><strong>Scenario:</strong> ผู้ใช้ที่ไม่ได้อยู่ในสายอนุมัติปัจจุบันพยายามกดอนุมัติเอกสาร</p>
-    <p><strong>Expected Result:</strong> ระบบปฏิเสธการอนุมัติและแสดงข้อความไม่มีสิทธิ์</p>
-    <p class="relation"><strong>Covers:</strong> <a class="id-ref" href="#UC-014">UC-014</a> &nbsp;|&nbsp; <strong>Target Screen:</strong> <a class="id-ref" href="#SCR-012">SCR-012</a></p></article>
-</section>
-
-<section id="matrix">
-  <h2>6. Traceability Matrix (N-to-N Overview)</h2>
-  <table id="matrix">
-    <thead><tr><th>WF</th><th>UC</th><th>SCR</th><th>API</th><th>TC</th></tr></thead>
-    <tbody>
-      <tr><td rowspan="3"><a class="id-ref" href="#WF-001">WF-001</a></td><td><a class="id-ref" href="#UC-001">UC-001</a></td><td><a class="id-ref" href="#SCR-001">SCR-001</a></td><td><a class="id-ref" href="#API-001">API-001</a></td><td>&mdash;</td></tr>
-      <tr><td><a class="id-ref" href="#UC-002">UC-002</a></td><td><a class="id-ref" href="#SCR-002">SCR-002</a></td><td><a class="id-ref" href="#API-002">API-002</a></td><td>&mdash;</td></tr>
-      <tr><td><a class="id-ref" href="#UC-003">UC-003</a></td><td><a class="id-ref" href="#SCR-003">SCR-003</a></td><td><a class="id-ref" href="#API-003">API-003</a></td><td>&mdash;</td></tr>
-
-      <tr><td rowspan="7"><a class="id-ref" href="#WF-002">WF-002</a></td><td><a class="id-ref" href="#UC-004">UC-004</a></td><td rowspan="2"><a class="id-ref" href="#SCR-004">SCR-004</a></td><td rowspan="2"><a class="id-ref" href="#API-004">API-004</a></td><td><a class="id-ref" href="#TC-001">TC-001</a></td></tr>
-      <tr><td><a class="id-ref" href="#UC-005">UC-005</a></td><td><a class="id-ref" href="#TC-002">TC-002</a></td></tr>
-      <tr><td><a class="id-ref" href="#UC-006">UC-006</a></td><td><a class="id-ref" href="#SCR-005">SCR-005</a></td><td><a class="id-ref" href="#API-005">API-005</a></td><td><a class="id-ref" href="#TC-003">TC-003</a></td></tr>
-      <tr><td><a class="id-ref" href="#UC-007">UC-007</a></td><td><a class="id-ref" href="#SCR-006">SCR-006</a></td><td><a class="id-ref" href="#API-006">API-006</a></td><td><a class="id-ref" href="#TC-004">TC-004</a></td></tr>
-      <tr><td><a class="id-ref" href="#UC-008">UC-008</a></td><td rowspan="2"><a class="id-ref" href="#SCR-007">SCR-007</a></td><td><a class="id-ref" href="#API-007">API-007</a></td><td><a class="id-ref" href="#TC-006">TC-006</a></td></tr>
-      <tr><td><a class="id-ref" href="#UC-009">UC-009</a></td><td><a class="id-ref" href="#API-009">API-009</a></td><td><a class="id-ref" href="#TC-007">TC-007</a>, <a class="id-ref" href="#TC-008">TC-008</a></td></tr>
-      <tr><td><a class="id-ref" href="#UC-010">UC-010</a></td><td><a class="id-ref" href="#SCR-009">SCR-009</a></td><td><a class="id-ref" href="#API-010">API-010</a></td><td>&mdash;</td></tr>
-
-      <tr><td rowspan="2"><a class="id-ref" href="#WF-005">WF-005</a></td><td><a class="id-ref" href="#UC-011">UC-011</a></td><td><a class="id-ref" href="#SCR-010">SCR-010</a></td><td><a class="id-ref" href="#API-011">API-011</a></td><td><a class="id-ref" href="#TC-009">TC-009</a></td></tr>
-      <tr><td><a class="id-ref" href="#UC-012">UC-012</a></td><td><a class="id-ref" href="#SCR-007">SCR-007</a></td><td><a class="id-ref" href="#API-008">API-008</a></td><td><a class="id-ref" href="#TC-005">TC-005</a></td></tr>
-
-      <tr><td rowspan="2"><a class="id-ref" href="#WF-003">WF-003</a></td><td><a class="id-ref" href="#UC-013">UC-013</a></td><td><a class="id-ref" href="#SCR-011">SCR-011</a></td><td><a class="id-ref" href="#API-012">API-012</a></td><td rowspan="2"><a class="id-ref" href="#TC-013">TC-013</a>, <a class="id-ref" href="#TC-014">TC-014</a></td></tr>
-      <tr><td><a class="id-ref" href="#UC-014">UC-014</a></td><td><a class="id-ref" href="#SCR-012">SCR-012</a></td><td><a class="id-ref" href="#API-013">API-013</a></td></tr>
-
-      <tr><td rowspan="3"><a class="id-ref" href="#WF-004">WF-004</a></td><td><a class="id-ref" href="#UC-015">UC-015</a></td><td rowspan="2"><a class="id-ref" href="#SCR-013">SCR-013</a></td><td rowspan="2"><a class="id-ref" href="#API-014">API-014</a></td><td><a class="id-ref" href="#TC-010">TC-010</a></td></tr>
-      <tr><td><a class="id-ref" href="#UC-016">UC-016</a></td><td><a class="id-ref" href="#TC-011">TC-011</a></td></tr>
-      <tr><td><a class="id-ref" href="#UC-017">UC-017</a></td><td><a class="id-ref" href="#SCR-014">SCR-014</a></td><td><a class="id-ref" href="#API-015">API-015</a></td><td><a class="id-ref" href="#TC-012">TC-012</a></td></tr>
-    </tbody>
-  </table>
-</section>
-
-</main>
-
-<footer>Generated per <code>skill.md</code> (Senior System Analyst / AI-Driven Software Architect framework) &mdash; sources: DOC-001 Smart_ERP_Blueprint.pdf, DOC-002 สรุป.docx</footer>
-
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">Smart ERP Phase 2<span>Requirement Traceability</span></div>
+
+    <h2>Hierarchy Flow</h2>
+    <div class="flow-diagram">
+      <span class="step" style="background:var(--wf)">WF</span><span class="sep">&rarr;</span>
+      <span class="step" style="background:var(--uc)">UC</span><span class="sep">&rarr;</span>
+      <span class="step" style="background:var(--scr)">SCR</span><span class="sep">&rarr;</span>
+      <span class="step" style="background:var(--api)">API</span><span class="sep">&rarr;</span>
+      <span class="step" style="background:var(--tc)">TC</span>
+    </div>
+    <div class="legend-item"><span class="sw" style="background:var(--wf)"></span> Workflow &mdash; กระบวนการภาพใหญ่</div>
+    <div class="legend-item"><span class="sw" style="background:var(--uc)"></span> Use Case &mdash; การใช้งานย่อยตาม Actor</div>
+    <div class="legend-item"><span class="sw" style="background:var(--scr)"></span> Screen &mdash; หน้าจอผู้ใช้งาน</div>
+    <div class="legend-item"><span class="sw" style="background:var(--api)"></span> Backend API &mdash; endpoint เชื่อมข้อมูล</div>
+    <div class="legend-item"><span class="sw" style="background:var(--tc)"></span> Test Case &mdash; เคสทดสอบ</div>
+
+    <div class="howto"><b>วิธีอ่านความเชื่อมโยง:</b> เอาเมาส์วางบนป้าย ID สีใดก็ได้ &rarr; ทุกจุดในเอกสารที่พูดถึง ID เดียวกันจะสว่างพร้อมกัน กดคลิกเพื่อกระโดดไปดูรายละเอียดเต็ม</div>
+
+    <h2>Sections</h2>
+    <nav>
+      <a href="#overview"><span class="dot" style="background:var(--doc)"></span> 0. Overview</a>
+      <a href="#workflows"><span class="dot" style="background:var(--wf)"></span> 1. Workflows</a>
+      <a href="#usecases"><span class="dot" style="background:var(--uc)"></span> 2. Use Cases</a>
+      <a href="#screens"><span class="dot" style="background:var(--scr)"></span> 3. Screens</a>
+      <a href="#apis"><span class="dot" style="background:var(--api)"></span> 4. Backend API</a>
+      <a href="#testcases"><span class="dot" style="background:var(--tc)"></span> 5. Test Cases</a>
+      <a href="#matrix"><span class="dot" style="background:var(--ink)"></span> 6. Traceability Matrix</a>
+    </nav>
+  </aside>
+
+  <main>
+    <header class="banner">
+      <h1>Smart ERP Phase 2 &mdash; Requirement &amp; Use Case Traceability Document</h1>
+      <p>ระบบบริหารจัดการรายรับอัจฉริยะ (Income &amp; Sales Management) ต่อยอดจากระบบเบิกจ่าย IOU Phase 1 &mdash; อ้างอิงจาก <span class="id-badge doc">DOC-001</span> Smart_ERP_Blueprint.pdf และ <span class="id-badge doc">DOC-002</span> สรุป.docx</p>
+    </header>
+
+    <div class="content">
+
+    <div class="callout"><b>Tip:</b> ทุก ID ในเอกสารนี้เชื่อมกันแบบ Bidirectional &mdash; วางเมาส์บนชิป/ป้ายสีใดก็ได้เพื่อดูว่า ID นั้นถูกอ้างถึงตรงไหนบ้างทั่วทั้งหน้า โดยเฉพาะแถบ "chain" สีในการ์ด Use Case ที่แสดงเส้นทางเต็มตั้งแต่ Workflow จนถึง Test Case</div>
+
+    <section id="overview">
+      <h2 class="sec" style="border-bottom:2px solid var(--doc)"><span class="bar" style="background:var(--doc)"></span>0. Executive Overview</h2>
+      <article style="border-left-color:var(--doc)">
+        <h3><span class="id-badge doc">DOC-001</span> Smart ERP: พิมพ์เขียวสถาปัตยกรรมการเงินระดับองค์กร</h3>
+        <p class="meta"><strong>ที่มา:</strong> Smart_ERP_Blueprint.pdf (Confidential Internal Document, เมษายน 2567)</p>
+        <p>สรุปโครงสร้างระบบเบิกจ่าย (Phase 1 &mdash; <span class="status done">90% Completed</span>), ระบบฝั่งขาย (Phase 2 &mdash; <span class="status progress">In Development</span>) และเป้าหมายบูรณาการข้อมูลเพื่อผู้บริหาร (The Vision).</p>
+      </article>
+      <article style="border-left-color:var(--doc)">
+        <h3><span class="id-badge doc">DOC-002</span> เอกสารสรุปข้อมูล: โครงการพัฒนาระบบบริหารจัดการองค์กร Phase 2</h3>
+        <p class="meta"><strong>ที่มา:</strong> สรุป.docx</p>
+        <p>เป้าหมายหลัก: ขยายขีดความสามารถจากระบบบริหารรายจ่าย (Phase 1) ไปสู่ระบบบริหารรายรับและกระแสเงินสด (Phase 2) แบบเต็มรูปแบบ ตั้งแต่ต้นน้ำ (ใบเสนอราคา) ถึงปลายน้ำ (รับเงิน + กระทบยอดธนาคาร) โดยใช้ฐานข้อมูล SQL เดียวกันกับ Phase 1 (Single Source of Truth) และวางแผนให้โมดูลหลัก (ใบเสนอราคา + สายอนุมัติ) แล้วเสร็จภายใน 1-2 เดือน โดยเริ่มจากบริษัท ACE Part เป็นลำดับแรก</p>
+        <p class="meta"><strong>Companies in scope (หัวเอกสารที่ต้องสลับได้):</strong> ACE Part, Smart, Flow</p>
+      </article>
+    </section>
+
+    <section id="workflows">
+      <h2 class="sec wf"><span class="bar"></span>1. Workflows <span class="count">(WF-001 &ndash; WF-005)</span></h2>
+
+      <article id="WF-001" class="wf-card">
+        <h3><span class="id-badge wf">WF-001</span> ระบบเบิกจ่าย IOU &amp; Expense Management <span class="status done">Phase 1 &mdash; 90% / Reference</span></h3>
+        <p>ควบคุมการนำเงินออกจากบริษัทผ่านฐานข้อมูลเดียว (IOU Core Database) ครอบคลุม Master Data, IOU &amp; Advance, Travel Expense, Document Tracking. เป็นฐานข้อมูล (Base Layer) ที่ Phase 2 เรียกใช้ร่วมกัน</p>
+        <div class="chain"><span class="label">Contains</span>
+          <a class="chip uc" href="#UC-001">UC-001</a>
+          <a class="chip uc" href="#UC-002">UC-002</a>
+          <a class="chip uc" href="#UC-003">UC-003</a>
+        </div>
+        <p class="meta" style="color:var(--doc);font-size:.82em">อ้างอิง: DOC-001 หน้า 2-3, 5</p>
+      </article>
+
+      <article id="WF-002" class="wf-card">
+        <h3><span class="id-badge wf">WF-002</span> วงจรเอกสารฝั่งขาย (Sales Document Cycle) <span class="status progress">Phase 2</span></h3>
+        <p>กระบวนการต้นน้ำถึงปลายน้ำของฝั่งขาย: ใบเสนอราคา &rarr; สัญญา &rarr; ใบส่งมอบงาน/ใบแจ้งหนี้/ใบวางบิล &rarr; ใบกำกับภาษี &rarr; ใบลดหนี้ &rarr; ใบเสร็จรับเงิน ข้อมูลไหลต่อกันเป็นสายน้ำเดียว ลดการคีย์ซ้ำ และดึง Master Data จาก WF-001 มาใช้ร่วมกัน</p>
+        <div class="chain"><span class="label">Contains</span>
+          <a class="chip uc" href="#UC-004">UC-004</a>
+          <a class="chip uc" href="#UC-005">UC-005</a>
+          <a class="chip uc" href="#UC-006">UC-006</a>
+          <a class="chip uc" href="#UC-007">UC-007</a>
+          <a class="chip uc" href="#UC-008">UC-008</a>
+          <a class="chip uc" href="#UC-009">UC-009</a>
+          <a class="chip uc" href="#UC-010">UC-010</a>
+        </div>
+        <p class="meta" style="color:var(--doc);font-size:.82em">อ้างอิง: DOC-001 หน้า 6-10, DOC-002 หัวข้อ 2.1</p>
+      </article>
+
+      <article id="WF-003" class="wf-card">
+        <h3><span class="id-badge wf">WF-003</span> ระบบอนุมัติกลาง (Central Approval Workflow) <span class="status new">New / Cross-cutting</span></h3>
+        <p>Approval Service ส่วนกลางที่ทุกโมดูลของ ERP เรียกใช้ร่วมกัน สายอนุมัติกำหนดผ่าน Database Config เพื่อรองรับ Business Logic ที่แตกต่างกันของแต่ละบริษัทในเครือ (PM &rarr; MD &rarr; Account &rarr; Head Account / CEO) โดยไม่ต้องแก้โค้ดใหม่ทั้งหมด</p>
+        <div class="chain"><span class="label">Contains</span>
+          <a class="chip uc" href="#UC-013">UC-013</a>
+          <a class="chip uc" href="#UC-014">UC-014</a>
+        </div>
+        <p class="meta" style="color:var(--doc);font-size:.82em">อ้างอิง: DOC-001 หน้า 4, 13, DOC-002 หัวข้อ 3.2</p>
+      </article>
+
+      <article id="WF-004" class="wf-card">
+        <h3><span class="id-badge wf">WF-004</span> กระทบยอดธนาคารและแดชบอร์ดผู้บริหาร <span class="status new">The Vision</span></h3>
+        <p>เป้าหมายสูงสุด: กระทบยอดบัญชีอัตโนมัติ (Automated Bank Rec/ROV) แบบ Line-by-Line ระหว่างข้อมูลระบบกับ Bank Statement พร้อม Cash Flow Dashboard สำหรับผู้บริหาร</p>
+        <div class="chain"><span class="label">Contains</span>
+          <a class="chip uc" href="#UC-015">UC-015</a>
+          <a class="chip uc" href="#UC-016">UC-016</a>
+          <a class="chip uc" href="#UC-017">UC-017</a>
+        </div>
+        <p class="meta" style="color:var(--doc);font-size:.82em">อ้างอิง: DOC-001 หน้า 2, 11-12, DOC-002 หัวข้อ 2.2</p>
+      </article>
+
+      <article id="WF-005" class="wf-card">
+        <h3><span class="id-badge wf">WF-005</span> ระบบฟอร์มเอกสารยืดหยุ่นและควบคุมเลขที่เอกสาร <span class="status new">Technical Requirement</span></h3>
+        <p>ความสามารถเชิงเทคนิคที่รองรับ WF-002: Dynamic Form Generator สำหรับสลับหัวเอกสาร/เทมเพลตตามลูกค้าแต่ละราย (เช่น การรถไฟ) และระบบจองเลขที่ใบกำกับภาษีล่วงหน้าเพื่อรักษาลำดับเลข-วันที่ตามกฎสรรพากร</p>
+        <div class="chain"><span class="label">Contains</span>
+          <a class="chip uc" href="#UC-011">UC-011</a>
+          <a class="chip uc" href="#UC-012">UC-012</a>
+        </div>
+        <p class="meta" style="color:var(--doc);font-size:.82em">อ้างอิง: DOC-001 หน้า 6-9, DOC-002 หัวข้อ 3.1, 3.3</p>
+      </article>
+    </section>
+
+    <section id="usecases">
+      <h2 class="sec uc"><span class="bar"></span>2. Use Cases <span class="count">(UC-001 &ndash; UC-017)</span></h2>
+      <p style="font-size:.88em;color:var(--doc)">แถบสี "chain" ด้านล่างของแต่ละ Use Case คือเส้นทางความเชื่อมโยงแบบเต็ม: Workflow &rarr; Use Case &rarr; Screen &rarr; API &rarr; Test Case</p>
+
+      <article id="UC-001" class="uc-card">
+        <h3><span class="id-badge uc">UC-001</span> จัดการข้อมูลหลัก (Master Data Management)</h3>
+        <p><strong>Actor:</strong> Admin / Account &mdash; จัดการข้อมูลโปรเจกต์ (Project-based Accounting), รายชื่อพนักงาน, สิทธิ์การใช้งาน และคู่ค้า (Supplier/Customer) เป็นฐานข้อมูลกลางที่ WF-002 เรียกใช้ร่วมกัน</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-001">WF-001</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-001</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-001">SCR-001</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-001">API-001</a><span class="arrow">&rarr;</span>
+          <span class="chip none">no TC yet</span>
+        </div>
+      </article>
+
+      <article id="UC-002" class="uc-card">
+        <h3><span class="id-badge uc">UC-002</span> ติดตามหนังสือค้ำประกันธนาคาร (LG Management)</h3>
+        <p><strong>Actor:</strong> Account &mdash; ติดตามวันหมดอายุของหนังสือค้ำประกัน (Letter of Guarantee) สำหรับงานราชการ และเชื่อมโยงค่าธรรมเนียมธนาคารเข้าเป็นรายจ่ายบริษัทโดยอัตโนมัติเมื่อถึงกำหนด</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-001">WF-001</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-002</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-002">SCR-002</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-002">API-002</a><span class="arrow">&rarr;</span>
+          <span class="chip none">no TC yet</span>
+        </div>
+      </article>
+
+      <article id="UC-003" class="uc-card">
+        <h3><span class="id-badge uc">UC-003</span> จัดทำงบประมาณโครงการ (Project &amp; BOQ Management)</h3>
+        <p><strong>Actor:</strong> PM &mdash; ทุกการเบิกจ่ายต้องผูกกับเลขโปรเจกต์เพื่อควบคุมต้นทุน (Cost Control) เทียบกับแผน BOQ/BOM ป้องกันงบบานปลาย</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-001">WF-001</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-003</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-003">SCR-003</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-003">API-003</a><span class="arrow">&rarr;</span>
+          <span class="chip none">no TC yet</span>
+        </div>
+      </article>
+
+      <article id="UC-004" class="uc-card">
+        <h3><span class="id-badge uc">UC-004</span> สร้างใบเสนอราคา (Create Quotation)</h3>
+        <p><strong>Actor:</strong> PM / Account (ACE Part เป็นบริษัทนำร่อง) &mdash; จุดตั้งต้นของข้อมูลฝั่งขาย เลือกเทมเพลตมาตรฐานหรือซับซ้อนตามลูกค้า (ดู UC-011)</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-004</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-004">SCR-004</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-004">API-004</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-001">TC-001</a>
+        </div>
+      </article>
+
+      <article id="UC-005" class="uc-card">
+        <h3><span class="id-badge uc">UC-005</span> ต่อรองราคาและบันทึกประวัติ (Negotiate &amp; Track Quotation Revisions)</h3>
+        <p><strong>Actor:</strong> PM / Account &mdash; เก็บประวัติการแก้ไขราคาหลายเวอร์ชันจนถึง Final Price และสถานะการประมูล (ชนะ/แพ้) ซึ่ง Final Price จะกลายเป็นราคาตามสัญญา</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-005</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-004">SCR-004</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-004">API-004</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-002">TC-002</a>
+        </div>
+      </article>
+
+      <article id="UC-006" class="uc-card">
+        <h3><span class="id-badge uc">UC-006</span> แปลงใบเสนอราคาเป็นสัญญา (Convert Quotation to Contract)</h3>
+        <p><strong>Actor:</strong> Account &mdash; คีย์ราคาและรายละเอียดไอเทมตามสัญญาโดยอ้างอิงราคาสุดท้ายจากใบเสนอราคา เพื่อใช้เป็นฐานข้อมูลวางบิล</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-006</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-005">SCR-005</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-005">API-005</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-003">TC-003</a>
+        </div>
+      </article>
+
+      <article id="UC-007" class="uc-card">
+        <h3><span class="id-badge uc">UC-007</span> ออกใบส่งมอบงาน / ใบแจ้งหนี้ / ใบวางบิล</h3>
+        <p><strong>Actor:</strong> Account &mdash; เลือกออกเอกสาร 3 แบบจาก Data Core เดียวกัน (ลูกหนี้+สัญญา+Running Number เดิม) พร้อมเปลี่ยนหัวเอกสารได้ตามบริษัทในเครือ (Configurable Headers) โดยไม่ต้องออกเอกสารซ้ำหลายใบสำหรับงานเดียวกัน</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-007</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-006">SCR-006</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-006">API-006</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-004">TC-004</a>
+        </div>
+      </article>
+
+      <article id="UC-008" class="uc-card">
+        <h3><span class="id-badge uc">UC-008</span> ออกใบกำกับภาษี (Issue Tax Invoice)</h3>
+        <p><strong>Actor:</strong> Account &mdash; ขั้นตอนที่ต้องการความเข้มงวดสูงสุด: เลขที่และวันที่ต้องเรียงลำดับต่อเนื่องตามกฎสรรพากร (ห้ามเลขข้าม/ห้ามกระโดด) ใช้ร่วมกับระบบจองเลขล่วงหน้า (UC-012)</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-008</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-007">SCR-007</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-007">API-007</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-006">TC-006</a>
+        </div>
+      </article>
+
+      <article id="UC-009" class="uc-card">
+        <h3><span class="id-badge uc">UC-009</span> ออกใบลดหนี้อ้างอิงใบกำกับภาษีเดิม (Issue Credit Note)</h3>
+        <p><strong>Actor:</strong> Account &mdash; ใบลดหนี้ไม่สามารถลอยตัวได้ ต้องมีฟังก์ชันดึงข้อมูลอ้างอิง (Tagging/Linking) กลับไปยังใบกำกับภาษีตั้งต้นเสมอ รองรับทั้งตัดยอดเต็ม (Full Refund) และตัดย่อย (Partial Refund) พร้อมคำนวณยอดคงเหลืออัตโนมัติ</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-009</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-008">SCR-008</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-009">API-009</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-007">TC-007</a><span class="arrow">+</span><a class="chip tc" href="#TC-008">TC-008</a>
+        </div>
+      </article>
+
+      <article id="UC-010" class="uc-card">
+        <h3><span class="id-badge uc">UC-010</span> ออกใบเสร็จรับเงิน (Issue Receipt)</h3>
+        <p><strong>Actor:</strong> Account &mdash; ขั้นตอนสุดท้ายของวงจรเอกสารฝั่งขาย สิ้นสุดกระบวนการฝั่งเอกสารก่อนนำไปสรุปในระบบบัญชีและกระทบยอดธนาคาร (UC-015)</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-002">WF-002</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-010</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-009">SCR-009</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-010">API-010</a><span class="arrow">&rarr;</span>
+          <span class="chip none">no TC yet</span>
+        </div>
+      </article>
+
+      <article id="UC-011" class="uc-card">
+        <h3><span class="id-badge uc">UC-011</span> เลือก/สร้างเทมเพลตเอกสารแบบยืดหยุ่น (Dynamic Document Template)</h3>
+        <p><strong>Actor:</strong> PM / Account &mdash; Quotation Engine รองรับ 2 รูปแบบ: Standard Template (หัวบริษัท 6 แบบ) และ Complex Template (โครงสร้างซับซ้อน Text-heavy เช่น แบบฟอร์มการรถไฟ ที่ต้องการ Strict Formatting) ผู้ใช้เลือกฟอร์มได้เองโดยไม่ต้องเขียนโค้ดใหม่</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-005">WF-005</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-011</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-010">SCR-010</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-011">API-011</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-009">TC-009</a>
+        </div>
+      </article>
+
+      <article id="UC-012" class="uc-card">
+        <h3><span class="id-badge uc">UC-012</span> จองเลขที่ใบกำกับภาษีล่วงหน้า (Pre-book Tax Invoice Number)</h3>
+        <p><strong>Actor:</strong> Account &mdash; ระบบ Number Booking: ล็อคเลขที่และวันที่ไว้ล่วงหน้า (Locked Placeholder) เพื่อป้องกันการข้ามลำดับ (Strict Sequence) และรักษาความถูกต้องทางบัญชี 100%</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-005">WF-005</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-012</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-007">SCR-007</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-008">API-008</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-005">TC-005</a>
+        </div>
+      </article>
+
+      <article id="UC-013" class="uc-card">
+        <h3><span class="id-badge uc">UC-013</span> กำหนดค่าสายอนุมัติตามบริษัท/ประเภทค่าใช้จ่าย (Configure Approval Line)</h3>
+        <p><strong>Actor:</strong> Admin &mdash; ตั้งค่าความยืดหยุ่นของ Line of Approve ผ่าน Database Config เพื่อรองรับ Business Logic ที่ต่างกันของแต่ละบริษัทในเครือ (Smart Business Flow vs ACE Business Flow) โดยไม่ต้องแก้โค้ด</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-003">WF-003</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-013</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-011">SCR-011</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-012">API-012</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-013">TC-013</a><span class="arrow">+</span><a class="chip tc" href="#TC-014">TC-014</a>
+        </div>
+      </article>
+
+      <article id="UC-014" class="uc-card">
+        <h3><span class="id-badge uc">UC-014</span> อนุมัติเอกสารผ่าน Approval Service กลาง (Approve Document)</h3>
+        <p><strong>Actor:</strong> PM / MD / Account / Head Account / CEO &mdash; ทุกโมดูลของ ERP เรียกใช้บริการอนุมัติกลางร่วมกัน เพื่อให้กระบวนการอนุมัติจบในที่เดียว</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-003">WF-003</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-014</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-012">SCR-012</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-013">API-013</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-013">TC-013</a><span class="arrow">+</span><a class="chip tc" href="#TC-014">TC-014</a>
+        </div>
+      </article>
+
+      <article id="UC-015" class="uc-card">
+        <h3><span class="id-badge uc">UC-015</span> กระทบยอดธนาคารอัตโนมัติ (Automated Bank Reconciliation)</h3>
+        <p><strong>Actor:</strong> Account &mdash; Matching Engine เปรียบเทียบข้อมูลฝั่งระบบ (300+ บรรทัด/วัน) กับ Bank Statement (2-3 บรรทัด) แบบ Line-by-Line ให้ยอดกระทบตรงกัน 100% ด้วยการคลิกเดียว</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-015</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-013">SCR-013</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-014">API-014</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-010">TC-010</a>
+        </div>
+      </article>
+
+      <article id="UC-016" class="uc-card">
+        <h3><span class="id-badge uc">UC-016</span> จัดการค่าธรรมเนียม/ค่าปรับธนาคารอัตโนมัติ</h3>
+        <p><strong>Actor:</strong> ระบบ (Automated) &mdash; เมื่อธนาคารหักค่าธรรมเนียม ระบบสร้างรายการเบิกจ่าย (IOU Expense) ให้ทันทีโดยอัตโนมัติ รวมถึงจัดการค่าปรับ (Penalties) ฝั่งขาย</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-016</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-013">SCR-013</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-014">API-014</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-011">TC-011</a>
+        </div>
+      </article>
+
+      <article id="UC-017" class="uc-card">
+        <h3><span class="id-badge uc">UC-017</span> ดูแดชบอร์ดกระแสเงินสดและพยากรณ์รายได้ (Cash Flow Dashboard)</h3>
+        <p><strong>Actor:</strong> ผู้บริหาร (Executive/CEO) &mdash; ภาพรวมเงินเข้า-ออกทั้งบริษัทในหน้าเดียว, พยากรณ์รายได้ 3 เดือนข้างหน้า ดึงข้อมูลจากฐานข้อมูลเดียว (Single Source of Truth)</p>
+        <div class="chain">
+          <a class="chip wf" href="#WF-004">WF-004</a><span class="arrow">&rarr;</span>
+          <span class="chip uc active">UC-017</span><span class="arrow">&rarr;</span>
+          <a class="chip scr" href="#SCR-014">SCR-014</a><span class="arrow">&rarr;</span>
+          <a class="chip api" href="#API-015">API-015</a><span class="arrow">&rarr;</span>
+          <a class="chip tc" href="#TC-012">TC-012</a>
+        </div>
+      </article>
+    </section>
+
+    <section id="screens">
+      <h2 class="sec scr"><span class="bar"></span>3. Screens / User Interface <span class="count">(SCR-001 &ndash; SCR-014)</span></h2>
+      <p style="font-size:.88em;color:var(--doc)">กด "View UI Mockup" เพื่อเปิดดูหน้าจอจริง (โหลดจากโฟลเดอร์ <code>make-front/</code>) แบบฝังในหน้านี้เลย ไม่ต้องออกจากหน้า Requirement — และคอมเมนต์ UI ได้ตรงนั้นเลย</p>
+
+      <article id="SCR-001" class="scr-card"><h3><span class="id-badge scr">SCR-001</span> หน้าจอข้อมูลหลัก (Master Data Screen)</h3>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-001">UC-001</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-001">API-001</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-001">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-001.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-001" hidden><iframe data-src="make-front/SCR-001.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-002" class="scr-card"><h3><span class="id-badge scr">SCR-002</span> หน้าจอหนังสือค้ำประกัน (LG Management Screen)</h3>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-002">UC-002</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-002">API-002</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-002">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-002.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-002" hidden><iframe data-src="make-front/SCR-002.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-003" class="scr-card"><h3><span class="id-badge scr">SCR-003</span> หน้าจองบประมาณโครงการ (BOQ/BOM Screen)</h3>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-003">UC-003</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-003">API-003</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-003">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-003.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-003" hidden><iframe data-src="make-front/SCR-003.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-004" class="scr-card"><h3><span class="id-badge scr">SCR-004</span> หน้าจอใบเสนอราคา (Quotation Screen)</h3>
+        <p>ฟอร์มสร้าง/แก้ไขใบเสนอราคา แสดงประวัติเวอร์ชันและสถานะชนะ/แพ้ ฝัง Template Selector (SCR-010)</p>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-004">UC-004</a><a class="chip uc" href="#UC-005">UC-005</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-004">API-004</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-004">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-004.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-004" hidden><iframe data-src="make-front/SCR-004.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-005" class="scr-card"><h3><span class="id-badge scr">SCR-005</span> หน้าจอสัญญา (Contract Screen)</h3>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-006">UC-006</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-005">API-005</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-005">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-005.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-005" hidden><iframe data-src="make-front/SCR-005.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-006" class="scr-card"><h3><span class="id-badge scr">SCR-006</span> หน้าจอวางบิล/ใบแจ้งหนี้ (Billing Screen)</h3>
+        <p>รองรับ 3 mode เอกสารจาก Data Core เดียวกัน: Delivery Note / Invoice / Billing Note พร้อมสลับหัวเอกสารตามบริษัท</p>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-007">UC-007</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-006">API-006</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-006">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-006.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-006" hidden><iframe data-src="make-front/SCR-006.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-007" class="scr-card"><h3><span class="id-badge scr">SCR-007</span> หน้าจอใบกำกับภาษี (Tax Invoice Screen)</h3>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-008">UC-008</a><a class="chip uc" href="#UC-012">UC-012</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-007">API-007</a><a class="chip api" href="#API-008">API-008</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-007">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-007.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-007" hidden><iframe data-src="make-front/SCR-007.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-008" class="scr-card"><h3><span class="id-badge scr">SCR-008</span> หน้าจอใบลดหนี้ (Credit Note Screen)</h3>
+        <p>บังคับให้ผู้ใช้เลือกอ้างอิงใบกำกับภาษีต้นฉบับก่อนเสมอ (ไม่อนุญาตให้สร้างแบบลอยตัว)</p>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-009">UC-009</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-009">API-009</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-008">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-008.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-008" hidden><iframe data-src="make-front/SCR-008.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-009" class="scr-card"><h3><span class="id-badge scr">SCR-009</span> หน้าจอใบเสร็จรับเงิน (Receipt Screen)</h3>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-010">UC-010</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-010">API-010</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-009">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-009.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-009" hidden><iframe data-src="make-front/SCR-009.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-010" class="scr-card"><h3><span class="id-badge scr">SCR-010</span> หน้าจอตัวจัดการเทมเพลตเอกสาร (Dynamic Form Generator Screen)</h3>
+        <p>ให้ PM/Account เลือก Standard หรือ Complex Template ล่วงหน้า และกำหนดค่า Configurable Headers</p>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-011">UC-011</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-011">API-011</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-010">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-010.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-010" hidden><iframe data-src="make-front/SCR-010.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-011" class="scr-card"><h3><span class="id-badge scr">SCR-011</span> หน้าจอตั้งค่าสายอนุมัติ (Approval Line Config Screen)</h3>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-013">UC-013</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-012">API-012</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-011">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-011.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-011" hidden><iframe data-src="make-front/SCR-011.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-012" class="scr-card"><h3><span class="id-badge scr">SCR-012</span> หน้าจอกล่องอนุมัติเอกสาร (Approval Inbox Screen)</h3>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-014">UC-014</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-013">API-013</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-012">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-012.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-012" hidden><iframe data-src="make-front/SCR-012.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-013" class="scr-card"><h3><span class="id-badge scr">SCR-013</span> หน้าจอกระทบยอดธนาคาร (Bank Reconciliation Screen)</h3>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-015">UC-015</a><a class="chip uc" href="#UC-016">UC-016</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-014">API-014</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-013">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-013.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-013" hidden><iframe data-src="make-front/SCR-013.html" loading="lazy"></iframe></div>
+      </article>
+
+      <article id="SCR-014" class="scr-card"><h3><span class="id-badge scr">SCR-014</span> หน้าจอ Executive Dashboard (Cash Flow Dashboard Screen)</h3>
+        <div class="chain"><span class="label">Realizes</span><a class="chip uc" href="#UC-017">UC-017</a><span class="arrow">&rarr;</span><span class="label">Calls</span><a class="chip api" href="#API-015">API-015</a></div>
+        <div class="ui-toggle-row">
+          <button class="ui-btn view-ui-btn" data-target="frame-SCR-014">🖼 View UI Mockup ▾</button>
+          <a class="ui-btn" href="make-front/SCR-014.html" target="_blank">↗ Open Full Page</a>
+        </div>
+        <div class="ui-frame-wrap" id="frame-SCR-014" hidden><iframe data-src="make-front/SCR-014.html" loading="lazy"></iframe></div>
+      </article>
+    </section>
+
+    <section id="apis">
+      <h2 class="sec api"><span class="bar"></span>4. Backend / API <span class="count">(API-001 &ndash; API-015)</span></h2>
+
+      <article id="API-001" class="api-card"><h3><span class="id-badge api">API-001</span> Master Data API</h3>
+        <p><strong>Endpoint:</strong> <code>GET/POST /api/v1/master-data/{projects|employees|partners}</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-001">SCR-001</a></div></article>
+
+      <article id="API-002" class="api-card"><h3><span class="id-badge api">API-002</span> Letter of Guarantee API</h3>
+        <p><strong>Endpoint:</strong> <code>GET/POST /api/v1/letter-of-guarantees</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-002">SCR-002</a></div></article>
+
+      <article id="API-003" class="api-card"><h3><span class="id-badge api">API-003</span> BOQ API</h3>
+        <p><strong>Endpoint:</strong> <code>GET/POST /api/v1/projects/{id}/boq</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-003">SCR-003</a></div></article>
+
+      <article id="API-004" class="api-card"><h3><span class="id-badge api">API-004</span> Quotation API</h3>
+        <p><strong>Endpoint:</strong> <code>POST /api/v1/quotations</code>, <code>PUT /api/v1/quotations/{id}</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-004">SCR-004</a><span class="arrow">&rarr;</span><span class="label">Validated by</span><a class="chip tc" href="#TC-001">TC-001</a><a class="chip tc" href="#TC-002">TC-002</a></div></article>
+
+      <article id="API-005" class="api-card"><h3><span class="id-badge api">API-005</span> Contract Conversion API</h3>
+        <p><strong>Endpoint:</strong> <code>POST /api/v1/quotations/{id}/convert-to-contract</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-005">SCR-005</a><span class="arrow">&rarr;</span><span class="label">Validated by</span><a class="chip tc" href="#TC-003">TC-003</a></div></article>
+
+      <article id="API-006" class="api-card"><h3><span class="id-badge api">API-006</span> Billing API</h3>
+        <p><strong>Endpoint:</strong> <code>POST /api/v1/invoices</code> (type: delivery-note | invoice | billing-note)</p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-006">SCR-006</a><span class="arrow">&rarr;</span><span class="label">Validated by</span><a class="chip tc" href="#TC-004">TC-004</a></div></article>
+
+      <article id="API-007" class="api-card"><h3><span class="id-badge api">API-007</span> Tax Invoice API</h3>
+        <p><strong>Endpoint:</strong> <code>POST /api/v1/tax-invoices</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-007">SCR-007</a><span class="arrow">&rarr;</span><span class="label">Validated by</span><a class="chip tc" href="#TC-006">TC-006</a></div></article>
+
+      <article id="API-008" class="api-card"><h3><span class="id-badge api">API-008</span> Number Booking API</h3>
+        <p><strong>Endpoint:</strong> <code>POST /api/v1/tax-invoices/book-number</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-007">SCR-007</a><span class="arrow">&rarr;</span><span class="label">Validated by</span><a class="chip tc" href="#TC-005">TC-005</a></div></article>
+
+      <article id="API-009" class="api-card"><h3><span class="id-badge api">API-009</span> Credit Note API</h3>
+        <p><strong>Endpoint:</strong> <code>POST /api/v1/credit-notes</code> (requires <code>reference_tax_invoice_id</code>)</p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-008">SCR-008</a><span class="arrow">&rarr;</span><span class="label">Validated by</span><a class="chip tc" href="#TC-007">TC-007</a><a class="chip tc" href="#TC-008">TC-008</a></div></article>
+
+      <article id="API-010" class="api-card"><h3><span class="id-badge api">API-010</span> Receipt API</h3>
+        <p><strong>Endpoint:</strong> <code>POST /api/v1/receipts</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-009">SCR-009</a></div></article>
+
+      <article id="API-011" class="api-card"><h3><span class="id-badge api">API-011</span> Template Generator API</h3>
+        <p><strong>Endpoint:</strong> <code>GET/POST /api/v1/templates</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-010">SCR-010</a><span class="arrow">&rarr;</span><span class="label">Validated by</span><a class="chip tc" href="#TC-009">TC-009</a></div></article>
+
+      <article id="API-012" class="api-card"><h3><span class="id-badge api">API-012</span> Approval Line Config API</h3>
+        <p><strong>Endpoint:</strong> <code>GET/POST /api/v1/approval-lines</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-011">SCR-011</a><span class="arrow">&rarr;</span><span class="label">Validated by</span><a class="chip tc" href="#TC-013">TC-013</a></div></article>
+
+      <article id="API-013" class="api-card"><h3><span class="id-badge api">API-013</span> Approval Action API</h3>
+        <p><strong>Endpoint:</strong> <code>POST /api/v1/approvals/{id}/action</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-012">SCR-012</a><span class="arrow">&rarr;</span><span class="label">Validated by</span><a class="chip tc" href="#TC-013">TC-013</a><a class="chip tc" href="#TC-014">TC-014</a></div></article>
+
+      <article id="API-014" class="api-card"><h3><span class="id-badge api">API-014</span> Bank Reconciliation Matching API</h3>
+        <p><strong>Endpoint:</strong> <code>POST /api/v1/bank-rec/match</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-013">SCR-013</a><span class="arrow">&rarr;</span><span class="label">Validated by</span><a class="chip tc" href="#TC-010">TC-010</a><a class="chip tc" href="#TC-011">TC-011</a></div></article>
+
+      <article id="API-015" class="api-card"><h3><span class="id-badge api">API-015</span> Dashboard API</h3>
+        <p><strong>Endpoint:</strong> <code>GET /api/v1/dashboard/cashflow</code>, <code>GET /api/v1/dashboard/income-forecast</code></p>
+        <div class="chain"><span class="label">Used by</span><a class="chip scr" href="#SCR-014">SCR-014</a><span class="arrow">&rarr;</span><span class="label">Validated by</span><a class="chip tc" href="#TC-012">TC-012</a></div></article>
+    </section>
+
+    <section id="testcases">
+      <h2 class="sec tc"><span class="bar"></span>5. Test Cases <span class="count">(TC-001 &ndash; TC-014)</span></h2>
+
+      <article id="TC-001" class="tc-card"><h3><span class="id-badge tc">TC-001</span> สร้างใบเสนอราคาสำเร็จด้วยข้อมูลถูกต้อง</h3>
+        <p><strong>Scenario:</strong> ผู้ใช้กรอกข้อมูลลูกค้า รายการ และเลือกเทมเพลตครบถ้วน แล้วกดบันทึก</p>
+        <p><strong>Expected Result:</strong> ระบบสร้างใบเสนอราคาสถานะ Draft พร้อมเลขที่เอกสารอัตโนมัติ</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-004">UC-004</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-004">SCR-004</a></div></article>
+
+      <article id="TC-002" class="tc-card"><h3><span class="id-badge tc">TC-002</span> บันทึกประวัติการแก้ไขราคาและสถานะชนะ/แพ้ถูกต้อง</h3>
+        <p><strong>Scenario:</strong> แก้ไขราคาใบเสนอราคาหลายครั้งแล้วปิดสถานะเป็น "ชนะ"</p>
+        <p><strong>Expected Result:</strong> ทุกเวอร์ชันถูกเก็บ Log และราคาล่าสุดถูกทำเครื่องหมายเป็น Final Price</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-005">UC-005</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-004">SCR-004</a></div></article>
+
+      <article id="TC-003" class="tc-card"><h3><span class="id-badge tc">TC-003</span> แปลงใบเสนอราคาเป็นสัญญาและดึงราคาสุดท้ายถูกต้อง</h3>
+        <p><strong>Scenario:</strong> กดปุ่มแปลงเป็นสัญญาจากใบเสนอราคาสถานะ "ชนะ"</p>
+        <p><strong>Expected Result:</strong> สัญญาใหม่ถูกสร้างพร้อมราคา/รายการที่ตรงกับ Final Price ทุกประการ</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-006">UC-006</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-005">SCR-005</a></div></article>
+
+      <article id="TC-004" class="tc-card"><h3><span class="id-badge tc">TC-004</span> สร้างใบแจ้งหนี้จากสัญญาพร้อมเลือกหัวเอกสารตามบริษัทในเครือ</h3>
+        <p><strong>Scenario:</strong> เลือกออกเอกสารประเภท Invoice จากสัญญา และเลือกหัวเอกสารบริษัท "Flow"</p>
+        <p><strong>Expected Result:</strong> เอกสารแสดงหัวบริษัท Flow แต่ Running Number และเนื้อหายังอ้างอิงฐานข้อมูลเดิม</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-007">UC-007</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-006">SCR-006</a></div></article>
+
+      <article id="TC-005" class="tc-card"><h3><span class="id-badge tc">TC-005</span> จองเลขใบกำกับภาษีล่วงหน้าสำเร็จและ Lock Placeholder</h3>
+        <p><strong>Scenario:</strong> จองเลขที่ลำดับที่ 7 ล่วงหน้าก่อนเอกสารจริงจะมาถึง</p>
+        <p><strong>Expected Result:</strong> เลขที่ 7 ถูกล็อคเป็น Placeholder และไม่สามารถถูกใช้ซ้ำหรือถูกข้ามได้</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-012">UC-012</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-007">SCR-007</a></div></article>
+
+      <article id="TC-006" class="tc-card"><h3><span class="id-badge tc">TC-006</span> ออกใบกำกับภาษีตามลำดับเลขที่และวันที่ถูกต้อง</h3>
+        <p><strong>Scenario:</strong> ออกใบกำกับภาษีฉบับถัดไปหลังเลขที่ถูกจองไว้แล้ว</p>
+        <p><strong>Expected Result:</strong> ระบบปฏิเสธหากวันที่หรือเลขที่ไม่เรียงลำดับต่อเนื่อง</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-008">UC-008</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-007">SCR-007</a></div></article>
+
+      <article id="TC-007" class="tc-card"><h3><span class="id-badge tc">TC-007</span> ปฏิเสธการสร้างใบลดหนี้ที่ไม่มีการอ้างอิงใบกำกับภาษีต้นฉบับ</h3>
+        <p><strong>Scenario:</strong> ผู้ใช้พยายามสร้างใบลดหนี้โดยไม่เลือกใบกำกับภาษีอ้างอิง</p>
+        <p><strong>Expected Result:</strong> ระบบแสดง Error และไม่อนุญาตให้บันทึก</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-009">UC-009</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-008">SCR-008</a></div></article>
+
+      <article id="TC-008" class="tc-card"><h3><span class="id-badge tc">TC-008</span> คำนวณยอดคงเหลือถูกต้องทั้งกรณีตัดยอดเต็มและตัดยอดบางส่วน</h3>
+        <p><strong>Scenario:</strong> สร้างใบลดหนี้แบบตัดยอดบางส่วน 2 ครั้งจากใบกำกับภาษีเดียวกัน</p>
+        <p><strong>Expected Result:</strong> ยอดคงเหลือลดลงถูกต้องตามลำดับ และป้องกันการตัดยอดเกินยอดคงเหลือ</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-009">UC-009</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-008">SCR-008</a></div></article>
+
+      <article id="TC-009" class="tc-card"><h3><span class="id-badge tc">TC-009</span> เลือกเทมเพลตมาตรฐานและเทมเพลตซับซ้อน (การรถไฟ) แสดงผลถูกต้อง</h3>
+        <p><strong>Scenario:</strong> สลับเลือก Standard Template และ Complex Template บนใบเสนอราคาเดียวกัน</p>
+        <p><strong>Expected Result:</strong> Layout เปลี่ยนตาม Template ที่เลือกโดยข้อมูลรายการไม่สูญหาย</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-011">UC-011</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-010">SCR-010</a></div></article>
+
+      <article id="TC-010" class="tc-card"><h3><span class="id-badge tc">TC-010</span> กระทบยอดธนาคารอัตโนมัติจับคู่ยอดได้ 100% แบบ Line-by-Line</h3>
+        <p><strong>Scenario:</strong> นำเข้า Bank Statement ที่มีรายการตรงกับเอกสารระบบทั้งหมด</p>
+        <p><strong>Expected Result:</strong> ระบบจับคู่รายการสำเร็จ 100% และแสดงสถานะ Fully Reconciled</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-015">UC-015</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-013">SCR-013</a></div></article>
+
+      <article id="TC-011" class="tc-card"><h3><span class="id-badge tc">TC-011</span> หักค่าธรรมเนียมธนาคารอัตโนมัติสร้างรายการเบิกจ่ายทันที</h3>
+        <p><strong>Scenario:</strong> Bank Statement มีรายการหักค่าธรรมเนียม 12 บาท</p>
+        <p><strong>Expected Result:</strong> ระบบสร้างรายการ IOU Expense มูลค่า 12 บาททันทีโดยไม่ต้องคีย์มือ</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-016">UC-016</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-013">SCR-013</a></div></article>
+
+      <article id="TC-012" class="tc-card"><h3><span class="id-badge tc">TC-012</span> แสดงแดชบอร์ด Cash Flow และพยากรณ์รายได้ 3 เดือนตรงกับฐานข้อมูลเดียว</h3>
+        <p><strong>Scenario:</strong> ผู้บริหารเปิดหน้า Dashboard หลังมีรายการรับ/จ่ายใหม่เข้าระบบ</p>
+        <p><strong>Expected Result:</strong> กราฟ Cash Flow และตัวเลขพยากรณ์อัปเดตตรงกับข้อมูลฝั่งบัญชีและฝั่งขายแบบ Real-time</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-017">UC-017</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-014">SCR-014</a></div></article>
+
+      <article id="TC-013" class="tc-card"><h3><span class="id-badge tc">TC-013</span> ส่งเอกสารเข้าสายอนุมัติที่ถูกต้องตามบริษัท/ประเภทค่าใช้จ่ายที่ Config ไว้</h3>
+        <p><strong>Scenario:</strong> ผู้ขอเบิกจากบริษัท ACE ส่งเอกสารประเภทค่าใช้จ่ายที่ตั้งค่าสายอนุมัติแบบ Category-based ไว้</p>
+        <p><strong>Expected Result:</strong> เอกสารถูกส่งไปตามลำดับผู้อนุมัติที่ถูก Config ไว้ในฐานข้อมูล ตรงกับประเภทค่าใช้จ่ายที่เลือก</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-013">UC-013</a><a class="chip uc" href="#UC-014">UC-014</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-011">SCR-011</a><a class="chip scr" href="#SCR-012">SCR-012</a></div></article>
+
+      <article id="TC-014" class="tc-card"><h3><span class="id-badge tc">TC-014</span> ป้องกันผู้ไม่มีสิทธิ์หรืออนุมัติข้ามลำดับในสายอนุมัติ</h3>
+        <p><strong>Scenario:</strong> ผู้ใช้ที่ไม่ได้อยู่ในสายอนุมัติปัจจุบันพยายามกดอนุมัติเอกสาร</p>
+        <p><strong>Expected Result:</strong> ระบบปฏิเสธการอนุมัติและแสดงข้อความไม่มีสิทธิ์</p>
+        <div class="chain"><span class="label">Covers</span><a class="chip uc" href="#UC-014">UC-014</a><span class="arrow">&rarr;</span><a class="chip scr" href="#SCR-012">SCR-012</a></div></article>
+    </section>
+
+    <section id="matrix">
+      <h2 class="sec matrix"><span class="bar"></span>6. Traceability Matrix (N-to-N Overview)</h2>
+      <table>
+        <thead><tr><th class="wf">WF</th><th class="uc">UC</th><th class="scr">SCR</th><th class="api">API</th><th class="tc">TC</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="3"><a class="chip wf" href="#WF-001">WF-001</a></td><td><a class="chip uc" href="#UC-001">UC-001</a></td><td><a class="chip scr" href="#SCR-001">SCR-001</a></td><td><a class="chip api" href="#API-001">API-001</a></td><td>&mdash;</td></tr>
+          <tr><td><a class="chip uc" href="#UC-002">UC-002</a></td><td><a class="chip scr" href="#SCR-002">SCR-002</a></td><td><a class="chip api" href="#API-002">API-002</a></td><td>&mdash;</td></tr>
+          <tr><td><a class="chip uc" href="#UC-003">UC-003</a></td><td><a class="chip scr" href="#SCR-003">SCR-003</a></td><td><a class="chip api" href="#API-003">API-003</a></td><td>&mdash;</td></tr>
+
+          <tr><td rowspan="7"><a class="chip wf" href="#WF-002">WF-002</a></td><td><a class="chip uc" href="#UC-004">UC-004</a></td><td rowspan="2"><a class="chip scr" href="#SCR-004">SCR-004</a></td><td rowspan="2"><a class="chip api" href="#API-004">API-004</a></td><td><a class="chip tc" href="#TC-001">TC-001</a></td></tr>
+          <tr><td><a class="chip uc" href="#UC-005">UC-005</a></td><td><a class="chip tc" href="#TC-002">TC-002</a></td></tr>
+          <tr><td><a class="chip uc" href="#UC-006">UC-006</a></td><td><a class="chip scr" href="#SCR-005">SCR-005</a></td><td><a class="chip api" href="#API-005">API-005</a></td><td><a class="chip tc" href="#TC-003">TC-003</a></td></tr>
+          <tr><td><a class="chip uc" href="#UC-007">UC-007</a></td><td><a class="chip scr" href="#SCR-006">SCR-006</a></td><td><a class="chip api" href="#API-006">API-006</a></td><td><a class="chip tc" href="#TC-004">TC-004</a></td></tr>
+          <tr><td><a class="chip uc" href="#UC-008">UC-008</a></td><td rowspan="2"><a class="chip scr" href="#SCR-007">SCR-007</a></td><td><a class="chip api" href="#API-007">API-007</a></td><td><a class="chip tc" href="#TC-006">TC-006</a></td></tr>
+          <tr><td><a class="chip uc" href="#UC-009">UC-009</a></td><td><a class="chip api" href="#API-009">API-009</a></td><td><a class="chip tc" href="#TC-007">TC-007</a> <a class="chip tc" href="#TC-008">TC-008</a></td></tr>
+          <tr><td><a class="chip uc" href="#UC-010">UC-010</a></td><td><a class="chip scr" href="#SCR-009">SCR-009</a></td><td><a class="chip api" href="#API-010">API-010</a></td><td>&mdash;</td></tr>
+
+          <tr><td rowspan="2"><a class="chip wf" href="#WF-005">WF-005</a></td><td><a class="chip uc" href="#UC-011">UC-011</a></td><td><a class="chip scr" href="#SCR-010">SCR-010</a></td><td><a class="chip api" href="#API-011">API-011</a></td><td><a class="chip tc" href="#TC-009">TC-009</a></td></tr>
+          <tr><td><a class="chip uc" href="#UC-012">UC-012</a></td><td><a class="chip scr" href="#SCR-007">SCR-007</a></td><td><a class="chip api" href="#API-008">API-008</a></td><td><a class="chip tc" href="#TC-005">TC-005</a></td></tr>
+
+          <tr><td rowspan="2"><a class="chip wf" href="#WF-003">WF-003</a></td><td><a class="chip uc" href="#UC-013">UC-013</a></td><td><a class="chip scr" href="#SCR-011">SCR-011</a></td><td><a class="chip api" href="#API-012">API-012</a></td><td rowspan="2"><a class="chip tc" href="#TC-013">TC-013</a> <a class="chip tc" href="#TC-014">TC-014</a></td></tr>
+          <tr><td><a class="chip uc" href="#UC-014">UC-014</a></td><td><a class="chip scr" href="#SCR-012">SCR-012</a></td><td><a class="chip api" href="#API-013">API-013</a></td></tr>
+
+          <tr><td rowspan="3"><a class="chip wf" href="#WF-004">WF-004</a></td><td><a class="chip uc" href="#UC-015">UC-015</a></td><td rowspan="2"><a class="chip scr" href="#SCR-013">SCR-013</a></td><td rowspan="2"><a class="chip api" href="#API-014">API-014</a></td><td><a class="chip tc" href="#TC-010">TC-010</a></td></tr>
+          <tr><td><a class="chip uc" href="#UC-016">UC-016</a></td><td><a class="chip tc" href="#TC-011">TC-011</a></td></tr>
+          <tr><td><a class="chip uc" href="#UC-017">UC-017</a></td><td><a class="chip scr" href="#SCR-014">SCR-014</a></td><td><a class="chip api" href="#API-015">API-015</a></td><td><a class="chip tc" href="#TC-012">TC-012</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    </div>
+
+    <footer>Generated per <code>skill.md</code> (Senior System Analyst / AI-Driven Software Architect framework) &mdash; sources: DOC-001 Smart_ERP_Blueprint.pdf, DOC-002 สรุป.docx</footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  function idOf(el) {
+    if (el.hasAttribute('href')) return el.getAttribute('href').replace('#', '').trim();
+    return el.textContent.trim();
+  }
+  var nodes = document.querySelectorAll('.id-badge, .chip');
+  nodes.forEach(function (el) {
+    var id = idOf(el);
+    if (!id) return;
+    el.dataset.linkid = id;
+  });
+  function setHl(id, on) {
+    document.querySelectorAll('[data-linkid="' + CSS.escape(id) + '"]').forEach(function (m) {
+      m.classList.toggle('hl', on);
+    });
+  }
+  nodes.forEach(function (el) {
+    var id = el.dataset.linkid;
+    if (!id) return;
+    el.addEventListener('mouseenter', function () { setHl(id, true); });
+    el.addEventListener('mouseleave', function () { setHl(id, false); });
+  });
+
+  document.querySelectorAll('.view-ui-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var wrap = document.getElementById(btn.dataset.target);
+      if (!wrap) return;
+      var isHidden = wrap.hasAttribute('hidden');
+      if (isHidden) {
+        wrap.removeAttribute('hidden');
+        var iframe = wrap.querySelector('iframe');
+        if (iframe && !iframe.getAttribute('src')) iframe.setAttribute('src', iframe.dataset.src);
+        btn.textContent = '🖼 Hide UI Mockup ▴';
+        btn.classList.add('open');
+      } else {
+        wrap.setAttribute('hidden', '');
+        btn.textContent = '🖼 View UI Mockup ▾';
+        btn.classList.remove('open');
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>

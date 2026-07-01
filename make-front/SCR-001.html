@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-001 — Master Data Screen | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page-id="SCR-001">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-001">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-001 · Master Data Screen</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-001">WF-001</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-001">UC-001</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-001</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-001">API-001</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1 class="screen-title">หน้าจอข้อมูลหลัก (Master Data Screen)</h1>
+  <p class="screen-sub">Phase 1 — จัดการโปรเจกต์ / พนักงาน / คู่ค้า เป็นฐานข้อมูลกลางที่ทุกโมดูล Phase 2 เรียกใช้ร่วมกัน</p>
+
+  <div class="device-frame">
+    <div class="device-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">smart-erp.local/app/master-data</span></div>
+    <div class="device-canvas">
+      <div class="mk-tabs">
+        <div class="mk-tab active">Projects</div>
+        <div class="mk-tab">Employees</div>
+        <div class="mk-tab">Suppliers / Customers</div>
+        <div class="mk-tab">Permissions</div>
+      </div>
+      <div class="mk-toolbar">
+        <span class="badge-pill blue">24 Active Projects</span>
+        <button class="mk-btn primary">+ New Project</button>
+      </div>
+      <table class="mk-table">
+        <thead><tr><th>Project Code</th><th>Project Name</th><th>Customer</th><th>Company</th><th>Budget</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>PRJ-2026-014</td><td>สถานีขนส่งผู้โดยสาร เฟส 2</td><td>การรถไฟแห่งประเทศไทย</td><td>ACE Part</td><td>฿4,200,000</td><td><span class="badge-pill green">On Track</span></td></tr>
+          <tr><td>PRJ-2026-015</td><td>ระบบไฟฟ้าสำรองอาคาร B</td><td>บมจ. สยามพาวเวอร์</td><td>Smart</td><td>฿1,850,000</td><td><span class="badge-pill amber">Over Budget 6%</span></td></tr>
+          <tr><td>PRJ-2026-016</td><td>ปรับปรุงระบบท่อประปา</td><td>การประปานครหลวง</td><td>Flow</td><td>฿980,000</td><td><span class="badge-pill green">On Track</span></td></tr>
+        </tbody>
+      </table>
+      <div class="note-box info">Master Data ชุดนี้ถูกอ้างอิงโดยใบเสนอราคา (SCR-004), สัญญา (SCR-005) และงบ BOQ (SCR-003) ผ่านเลขโปรเจกต์เดียวกันเสมอ</div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์ที่พิมพ์ที่นี่บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้เท่านั้น กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดเป็นไฟล์แล้ววางไว้ใน make-front/ ให้ AI อ่านตอนแก้ไข UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้เพิ่มคอลัมน์ผู้รับผิดชอบโปรเจกต์... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

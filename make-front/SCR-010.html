@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-010 — Dynamic Form Generator | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page-id="SCR-010">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-010">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-010 · Dynamic Form Generator</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-005">WF-005</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-011">UC-011</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-010</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-011">API-011</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-009">TC-009</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1 class="screen-title">หน้าจอตัวจัดการเทมเพลตเอกสาร (Dynamic Form Generator)</h1>
+  <p class="screen-sub">Quotation Engine — เลือก Standard Template หรือ Complex Template ล่วงหน้า โดยไม่ต้องเขียนโค้ดใหม่</p>
+
+  <div class="device-frame">
+    <div class="device-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">smart-erp.local/app/templates</span></div>
+    <div class="device-canvas">
+      <h3 style="margin-top:0">Standard Template (รูปแบบบริษัททั่วไป)</h3>
+      <div class="mk-grid" style="grid-template-columns:repeat(6,1fr);gap:10px;">
+        <div class="flow-box hl" style="min-width:auto">ACE Part</div>
+        <div class="flow-box" style="min-width:auto">Smart</div>
+        <div class="flow-box" style="min-width:auto">Flow</div>
+        <div class="flow-box" style="min-width:auto">Header 4</div>
+        <div class="flow-box" style="min-width:auto">Header 5</div>
+        <div class="flow-box" style="min-width:auto">Header 6</div>
+      </div>
+      <p style="font-size:.85em;color:#64748b">โครงสร้างเรียบง่าย (รายการ, จำนวน, ราคา) เลือกแสดง/ซ่อนรายละเอียดได้</p>
+
+      <h3>Complex Template (รูปแบบเฉพาะ เช่น การรถไฟ)</h3>
+      <div class="note-box">
+        📄 Section 1: Detailed Breakdown &middot; 📄 Technical Specifications &middot; 📄 Payment Milestones<br>
+        โครงสร้างซับซ้อน (Text-heavy), มีเงื่อนไขเฉพาะ, ต้องการแบบฟอร์มกระดาษเป๊ะๆ (Strict Formatting)
+      </div>
+
+      <div class="mk-toolbar" style="margin-top:16px">
+        <span class="badge-pill blue">Selected: Standard — ACE Part</span>
+        <button class="mk-btn primary">Apply to Current Quotation</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์ที่พิมพ์ที่นี่บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้เท่านั้น กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดเป็นไฟล์แล้ววางไว้ใน make-front/ ให้ AI อ่านตอนแก้ไข UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้มีปุ่ม Preview ก่อน Apply... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

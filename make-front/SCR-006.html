@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-006 — Billing Screen | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page-id="SCR-006">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-006">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-006 · Billing Screen</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-002">WF-002</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-007">UC-007</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-006</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-006">API-006</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-004">TC-004</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1 class="screen-title">หน้าจอวางบิล / ใบแจ้งหนี้ (Billing Screen)</h1>
+  <p class="screen-sub">ออกเอกสารได้ 3 รูปแบบจาก Data Core เดียวกัน พร้อมสลับหัวเอกสารตามบริษัทในเครือโดยไม่ต้องออกเอกสารซ้ำ</p>
+
+  <div class="device-frame">
+    <div class="device-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">smart-erp.local/app/billing/CT-2026-0088</span></div>
+    <div class="device-canvas">
+      <div class="mk-tabs">
+        <div class="mk-tab">Delivery Note</div>
+        <div class="mk-tab active">Invoice</div>
+        <div class="mk-tab">Billing Note</div>
+      </div>
+      <div class="mk-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="mk-field"><label>Company Header (Configurable)</label><div class="fake-input filled">🏢 Flow ▾</div></div>
+        <div class="mk-field"><label>Running Number</label><div class="fake-input disabled">INV-2026-000512 (shared core)</div></div>
+      </div>
+      <table class="mk-table" style="margin-top:16px">
+        <thead><tr><th>Item</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>งานติดตั้งระบบไฟฟ้าสำรอง</td><td>1</td><td>฿850,000</td><td>฿850,000</td></tr>
+          <tr><td>2</td><td>ค่าดำเนินการ &amp; ทดสอบระบบ</td><td>1</td><td>฿70,000</td><td>฿70,000</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="4" style="text-align:right;font-weight:700">Total</td><td style="font-weight:800">฿920,000</td></tr></tfoot>
+      </table>
+      <div class="mk-toolbar" style="margin-top:16px">
+        <button class="mk-btn ghost">Generate Delivery Note</button>
+        <button class="mk-btn primary">Generate Invoice</button>
+        <button class="mk-btn ghost">Generate Billing Note</button>
+      </div>
+      <div class="note-box info">💡 ทั้ง 3 เอกสารดึงข้อมูล ลูกหนี้ + สัญญา + Running Number จากฐานเดียวกัน สลับหัวเอกสารได้ 6 แบบ (ACE Part / Smart / Flow ฯลฯ) โดยเนื้อหาไม่เปลี่ยน</div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์ที่พิมพ์ที่นี่บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้เท่านั้น กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดเป็นไฟล์แล้ววางไว้ใน make-front/ ให้ AI อ่านตอนแก้ไข UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้ Generate ได้พร้อมกันทั้ง 3 เอกสารในคลิกเดียว... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

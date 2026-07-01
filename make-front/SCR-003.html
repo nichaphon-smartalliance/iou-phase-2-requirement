@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-003 — BOQ/BOM Screen | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page-id="SCR-003">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-003">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-003 · BOQ/BOM Screen</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-001">WF-001</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-003">UC-003</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-003</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-003">API-003</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1 class="screen-title">หน้าจองบประมาณโครงการ (Project &amp; BOQ Management)</h1>
+  <p class="screen-sub">Phase 1 — ทุกการเบิกจ่ายผูกกับเลขโปรเจกต์เพื่อควบคุมต้นทุน (Cost Control) เทียบแผน BOQ/BOM ป้องกันงบบานปลาย</p>
+
+  <div class="device-frame">
+    <div class="device-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">smart-erp.local/app/projects/PRJ-2026-014/boq</span></div>
+    <div class="device-canvas">
+      <div class="kpi-row">
+        <div class="kpi-card"><div class="label">Total Budget</div><div class="value">฿4,200,000</div></div>
+        <div class="kpi-card"><div class="label">Spent (Actual)</div><div class="value">฿2,915,000</div></div>
+        <div class="kpi-card"><div class="label">Remaining</div><div class="value">฿1,285,000</div></div>
+        <div class="kpi-card"><div class="label">% Used</div><div class="value">69%</div></div>
+      </div>
+      <table class="mk-table">
+        <thead><tr><th>Item</th><th>Category</th><th>Planned</th><th>Actual</th><th>Variance</th></tr></thead>
+        <tbody>
+          <tr><td>โครงเหล็ก + วัสดุหลัก</td><td>Materials</td><td>฿1,750,000</td><td>฿1,690,000</td><td><span class="badge-pill green">-฿60,000</span></td></tr>
+          <tr><td>ค่าแรงติดตั้ง</td><td>Labor</td><td>฿1,050,000</td><td>฿1,120,000</td><td><span class="badge-pill red">+฿70,000</span></td></tr>
+          <tr><td>Overhead</td><td>Overhead</td><td>฿420,000</td><td>฿395,000</td><td><span class="badge-pill green">-฿25,000</span></td></tr>
+          <tr><td>Contingency</td><td>Contingency</td><td>฿420,000</td><td>฿0</td><td><span class="badge-pill gray">Unused</span></td></tr>
+        </tbody>
+      </table>
+      <div class="note-box">📌 ทุกการเบิกจ่ายในระบบ IOU ต้องเลือกเลขโปรเจกต์นี้เสมอ — ยอด Actual ด้านบนอัปเดตแบบ Real-time ทุกครั้งที่มีการอนุมัติเบิกจ่ายใหม่</div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์ที่พิมพ์ที่นี่บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้เท่านั้น กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดเป็นไฟล์แล้ววางไว้ใน make-front/ ให้ AI อ่านตอนแก้ไข UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้แสดงกราฟ Variance แทนตัวเลข... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

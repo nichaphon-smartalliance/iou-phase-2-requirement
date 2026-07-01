@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-011 — Approval Line Config Screen | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page-id="SCR-011">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-011">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-011 · Approval Line Config Screen</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-003">WF-003</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-013">UC-013</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-011</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-012">API-012</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-013">TC-013</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1 class="screen-title">หน้าจอตั้งค่าสายอนุมัติ (Approval Line Config Screen)</h1>
+  <p class="screen-sub">ตั้งค่า Line of Approve ผ่าน Database Config รองรับ Business Logic ต่างกันของแต่ละบริษัทในเครือ โดยไม่ต้องแก้โค้ด</p>
+
+  <div class="device-frame">
+    <div class="device-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">smart-erp.local/app/approval-lines</span></div>
+    <div class="device-canvas">
+      <div class="mk-grid" style="grid-template-columns:1fr 1fr;margin-bottom:16px">
+        <div class="mk-field"><label>Company</label><div class="fake-input filled">Smart</div></div>
+        <div class="mk-field"><label>Expense Category</label><div class="fake-input filled">All (Default Flow)</div></div>
+      </div>
+
+      <h3>Smart Business Flow</h3>
+      <div class="flow-row">
+        <div class="flow-box hl">ผู้ขอเบิก<br>(PM/Staff)</div><span class="flow-arrow">→</span>
+        <div class="flow-box hl">MD (CEO)</div><span class="flow-arrow">→</span>
+        <div class="flow-box hl">Account</div><span class="flow-arrow">→</span>
+        <div class="flow-box hl">Head Account<br>(คนสุดท้าย)</div>
+      </div>
+      <div class="note-box">หากผู้เบิกคือ Head Account ผู้อนุมัติจะเปลี่ยนเป็น CEO โดยอัตโนมัติ</div>
+
+      <h3>ACE Business Flow (Category-based)</h3>
+      <div class="flow-row">
+        <div class="flow-box hl">ผู้ขอเบิก<br>(Engineer/Staff)</div><span class="flow-arrow">→</span>
+        <div class="flow-box hl">PM<br>(ผู้รับผิดชอบโปรเจกต์)</div><span class="flow-arrow">→</span>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <div class="flow-box" style="min-width:160px">ค่าเดินทาง → MD</div>
+          <div class="flow-box" style="min-width:160px">ค่าวัสดุ → Account</div>
+          <div class="flow-box" style="min-width:160px">ค่าใช้จ่าย &gt;100k → CEO</div>
+        </div>
+      </div>
+      <div class="note-box danger">การอนุมัติซับซ้อนกว่าและแยกตามประเภทค่าใช้จ่าย (Category-based logic) — ตั้งค่าได้ที่นี่โดยไม่ต้องแก้โค้ด</div>
+
+      <div class="mk-toolbar" style="margin-top:16px">
+        <button class="mk-btn ghost">+ Add Approval Step</button>
+        <button class="mk-btn primary">Save Configuration</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์ที่พิมพ์ที่นี่บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้เท่านั้น กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดเป็นไฟล์แล้ววางไว้ใน make-front/ ให้ AI อ่านตอนแก้ไข UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้ลาก-วางเปลี่ยนลำดับขั้นตอนอนุมัติได้... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>

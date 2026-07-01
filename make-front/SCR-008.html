@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>SCR-008 — Credit Note Screen | UI Mockup</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page-id="SCR-008">
+<header class="mockup-top">
+  <a class="back" href="../requirement.html#SCR-008">← Back to Requirement Hub</a>
+  <div class="title">🖥 SCR-008 · Credit Note Screen</div>
+  <div class="chain">
+    <a class="chip wf" href="../requirement.html#WF-002">WF-002</a><span class="arrow-sm">→</span>
+    <a class="chip uc" href="../requirement.html#UC-009">UC-009</a><span class="arrow-sm">→</span>
+    <span class="chip scr active">SCR-008</span><span class="arrow-sm">→</span>
+    <a class="chip api" href="../requirement.html#API-009">API-009</a><span class="arrow-sm">→</span>
+    <a class="chip tc" href="../requirement.html#TC-007">TC-007</a><a class="chip tc" href="../requirement.html#TC-008">TC-008</a>
+  </div>
+</header>
+<main class="wrap">
+  <h1 class="screen-title">หน้าจอใบลดหนี้ (Credit Note Screen)</h1>
+  <p class="screen-sub">ใบลดหนี้ห้ามลอยตัว — ต้องอ้างอิงใบกำกับภาษีต้นฉบับเสมอ รองรับตัดยอดเต็มและตัดย่อยพร้อมคำนวณยอดคงเหลืออัตโนมัติ</p>
+
+  <div class="device-frame">
+    <div class="device-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="url">smart-erp.local/app/credit-notes/new</span></div>
+    <div class="device-canvas">
+      <div class="mk-field" style="max-width:420px;margin-bottom:16px">
+        <label>Reference Tax Invoice <span style="color:#e11d48">*</span></label>
+        <div class="fake-input filled">TINV-2026-000007 (฿920,000) ▾</div>
+      </div>
+      <div class="note-box danger">⚠️ ฟิลด์นี้เป็นข้อบังคับ — ระบบไม่อนุญาตให้บันทึกใบลดหนี้หากไม่เลือกใบกำกับภาษีอ้างอิง (ป้องกันเอกสารลอยตัว)</div>
+
+      <div class="mk-tabs" style="margin-top:18px">
+        <div class="mk-tab">Full Refund</div>
+        <div class="mk-tab active">Partial Refund</div>
+      </div>
+      <div class="mk-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="mk-field"><label>Credit Amount (this note)</label><div class="fake-input filled">฿10,000</div></div>
+        <div class="mk-field"><label>Reason</label><div class="fake-input filled">ส่วนลดเพิ่มเติมตามข้อตกลง</div></div>
+      </div>
+
+      <table class="mk-table" style="margin-top:16px">
+        <thead><tr><th></th><th>Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Original Tax Invoice (TINV-2026-000007)</td><td>฿920,000</td></tr>
+          <tr><td>Already Credited (CN-2026-0011)</td><td>-฿20,000</td></tr>
+          <tr><td>This Credit Note</td><td>-฿10,000</td></tr>
+          <tr style="font-weight:800"><td>Remaining Balance</td><td>฿890,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <section class="comments-panel">
+    <h2>💬 Feedback / Comments <span id="commentCount" class="count-badge"></span></h2>
+    <p class="hint">คอมเมนต์ที่พิมพ์ที่นี่บันทึกในเบราว์เซอร์นี้ (localStorage) เฉพาะไฟล์นี้เท่านั้น กด "Copy All" เพื่อคัดลอกไปวางในแชทกับ AI หรือ "Export .md" เพื่อดาวน์โหลดเป็นไฟล์แล้ววางไว้ใน make-front/ ให้ AI อ่านตอนแก้ไข UI</p>
+    <textarea id="commentInput" placeholder="เช่น: อยากให้ Remaining Balance เป็นตัวหนังสือสีแดงถ้าติดลบ... (Ctrl+Enter เพื่อส่ง)"></textarea>
+    <div class="c-toolbar">
+      <button id="addCommentBtn" class="btn primary">+ Add Comment</button>
+      <button id="copyBtn" class="btn">📋 Copy All</button>
+      <button id="exportBtn" class="btn">⬇ Export .md</button>
+    </div>
+    <div id="commentList"></div>
+  </section>
+</main>
+<script src="assets/comments.js"></script>
+</body>
+</html>
